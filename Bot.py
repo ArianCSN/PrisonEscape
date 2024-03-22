@@ -3,12 +3,13 @@ import random
 
 
 class Bot:
-    def __init__(self, x, y, width, height, color1, color2, color3, screen_rect):
+    def __init__(self, x, y, width, height, color1, color2, color3, speed, screen_rect):
         self.rect = pygame.Rect(x, y, width, height)
         self.color = (color1, color2, color3)
         self.screen_rect = screen_rect
         self.direction = 0
         self.flag = 0
+        self.speed = speed
     import random
 
     def move(self, walls):
@@ -17,16 +18,15 @@ class Bot:
         # Speed and movement direction of bots
         self.flag += random.randint(1, 4)
         if self.flag >= 20:
-            speed = 5
             direction = random.randint(1, 4)
             if direction == 1:
-                self.rect.move_ip(0, speed)
+                self.rect.move_ip(0, self.speed)
             if direction == 2:
-                self.rect.move_ip(-speed, 0)
+                self.rect.move_ip(-self.speed, 0)
             if direction == 3:
-                self.rect.move_ip(0, -speed)
+                self.rect.move_ip(0, -self.speed)
             if direction == 4:
-                self.rect.move_ip(speed, 0)
+                self.rect.move_ip(self.speed, 0)
             self.flag = 0
 
         # Keep the bots within the screen

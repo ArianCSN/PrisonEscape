@@ -12,11 +12,7 @@ def map00():
     screen_rect = screen.get_rect()
 
     player = MyPlayer(390, 435, 25, 50, screen_rect)
-    bot1 = Bot(300, 300, 25, 50, 0, 0, 250, screen_rect)
-    bot2 = Bot(300, 300, 25, 25, 0, 150, 0, screen_rect)
-    bot3 = Bot(300, 300, 25, 25, 0, 0, 200, screen_rect)
-    bot4 = Bot(300, 300, 25, 25, 0, 0, 150, screen_rect)
-
+    bots = [Bot(200, 300, 25, 50, 0, 0, 255, 20, screen_rect), Bot(600, 300, 25, 50, 0, 0, 255, 5, screen_rect)]
     # define the walls
     walls = [Wall(0, 0, 150, 250), Wall(0, 400, 150, 200), Wall(300, 0, 300, 200), Wall(600, 0, 200, 80),
              Wall(760, 230, 40, 170), Wall(650, 400, 200, 200), Wall(300, 400, 40, 200), Wall(340, 525, 160, 75)
@@ -29,11 +25,7 @@ def map00():
                 running = False
 
         key = pygame.key.get_pressed()
-        player.move(key, walls)
-        bot1.move(walls)
-        # bot2.move(walls)
-        # bot3.move(walls)
-        # bot4.move(walls)
+        player.move(key, walls, bots)
 
         # Clear the screen
         screen.fill((0, 0, 0))
@@ -43,10 +35,11 @@ def map00():
             wall.draw(screen)
 
         player.draw(screen)
-        bot1.draw(screen)
-        # bot2.draw(screen)
-        # bot3.draw(screen)
-        # bot4.draw(screen)
+
+        for bot in bots:
+            bot.move(walls)
+            bot.draw(screen)
+
         x, y = pygame.mouse.get_pos()
         coord_text = font.render(f'X: {x}, Y: {y}', True, (255, 0, 0))
         screen.blit(coord_text, (10, 10))  # Draw the text
@@ -55,5 +48,9 @@ def map00():
 
         # Frame rate
         pygame.time.Clock().tick(60)
+
+        for bot in bots:
+            if player.rect.colliderect(bot.rect):
+                return "game_over"
 
     pygame.quit()

@@ -7,7 +7,7 @@ class MyPlayer:
         self.color = (255, 0, 0)
         self.screen_rect = screen_rect
 
-    def move(self, key, walls):
+    def move(self, key, walls, bots):
         # Store the original position in case we need to revert due to collision
         original_rect = self.rect.copy()
 
