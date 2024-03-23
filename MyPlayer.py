@@ -2,7 +2,7 @@ import pygame
 
 
 class MyPlayer:
-    def __init__(self, x, y, width, height, screen_rect):
+    def __init__(self, x, y, width, height, screen_rect, player_image_path):
         self.rect = pygame.Rect(x, y, width, height)
         self.color = (255, 0, 0)
         self.screen_rect = screen_rect
