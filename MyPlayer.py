@@ -2,7 +2,8 @@ import pygame
 
 
 class MyPlayer:
-    def __init__(self, x, y, screen, walk_up, walk_left, walk_down, walk_right, idle, developer_mode):
+    def __init__(self, x, y, screen, walk_up, walk_left, walk_down, walk_right, idle, player_speed, developer_mode):
+        self.speed = player_speed
         self.screen = screen
         self.walk_up = walk_up
         self.walk_left = walk_left
@@ -20,27 +21,26 @@ class MyPlayer:
         self.rect = pygame.Rect(self.x, self.y, self.max_width, self.max_height)
 
     def move(self, key):
-        speed = 2
         self.dx = 0
         self.dy = 0
         # Move the player
         if (key[pygame.K_w] or key[pygame.K_UP]) and self.y > 1:
-            self.dy = -speed
+            self.dy = -self.speed
             if self.walk_up:
                 self.direction = 'up'
             elif self.direction == 'idle':
                 self.direction = 'right'
         elif (key[pygame.K_a] or key[pygame.K_LEFT]) and self.x > 1:
-            self.dx = -speed
+            self.dx = -self.speed
             self.direction = 'left'
         elif (key[pygame.K_s] or key[pygame.K_DOWN]) and self.y < 600 - self.max_height:
-            self.dy = speed
+            self.dy = self.speed
             if self.walk_down:
                 self.direction = 'down'
             elif self.direction == 'idle':
                 self.direction = 'left'
         elif (key[pygame.K_d] or key[pygame.K_RIGHT]) and self.x < 800 - self.max_width:
-            self.dx = speed
+            self.dx = self.speed
             self.direction = 'right'
         else:
             self.direction = 'idle'
