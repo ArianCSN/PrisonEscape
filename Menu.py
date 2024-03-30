@@ -13,6 +13,10 @@ pygame.display.set_caption('Main menu')
 
 # Main menu loop
 def main_menu():
+    pygame.mixer.init()
+    pygame.mixer.music.load('assets/main_menu/sound/music.mp3')
+    pygame.mixer.music.play(-1)
+    pygame.mixer.music.set_volume(0.2)
     menu_running = True
     while menu_running:
         screen.fill((0, 0, 0))  # Clear the screen
@@ -51,11 +55,16 @@ def main_menu():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos  # Get the mouse position
                 if play_button.collidepoint(mouse_pos):
+                    sound_effect = pygame.mixer.Sound('assets/main_menu/sound/start.mp3')
+                    sound_effect.set_volume(0.2)
+                    sound_effect.play()
+                    pygame.mixer.music.stop()
                     # Start the game
-                    return "01", 0
+                    return "map01", 0
                 elif dev_mode_button.collidepoint(mouse_pos):
+                    pygame.mixer.music.stop()
                     # Toggle developer mode
-                    return "01", 1
+                    return "map01", 1
                 elif exit_button.collidepoint(mouse_pos):
                     # Exit the game
                     exit()

@@ -51,7 +51,7 @@ class MyPlayer:
         self.rect.x = self.x
         self.rect.y = self.y
 
-        if self.walk_count + 1 >= 27:
+        if self.walk_count + 1 >= len(self.walk_left)*3:
             self.walk_count = 0
 
         if self.direction == 'up':

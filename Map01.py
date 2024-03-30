@@ -1,4 +1,5 @@
 import pygame
+from Ground import Ground
 from MyPlayer import MyPlayer
 from Bot import Bot
 from Wall import Wall
@@ -6,56 +7,107 @@ from MapChanger import MapChanger
 
 
 def map01(x_pos, y_pos, developer_mode):
+    # start the pygame and pygame mixer
     pygame.init()
-    # set screen
-    pygame.display.set_caption('Prison Escape - Map 01')
-    screen = pygame.display.set_mode((800, 600))
+    pygame.mixer.init()
+
+    # set up screen
+    screen_width = 800
+    screen_height = 600
+    pygame.display.set_caption('Prison Escape')
+    screen = pygame.display.set_mode((screen_width, screen_height))
+
+    # load music
+    pygame.mixer.music.load('assets/map01/sound/music.wav')
+    # adjust the music volume to 0.4
+    pygame.mixer.music.set_volume(0.4)
+    # loop the music
+    pygame.mixer.music.play(-1)
 
     # load textures
-    idle = pygame.image.load('assets/map01/player/standing.png')
+    ground_texture = pygame.image.load('assets/map01/ground/ground.jpg')
+
+    wall_texture = pygame.image.load('assets/map01/wall/grey_bricks.jpg')
+
+    idle = pygame.image.load('assets/map01/player/idle.png')
 
     walk_up = None
 
     walk_left = [pygame.image.load('assets/map01/player/L1.png'), pygame.image.load('assets/map01/player/L2.png'),
                  pygame.image.load('assets/map01/player/L3.png'), pygame.image.load('assets/map01/player/L4.png'),
-                 pygame.image.load('assets/map01/player/L5.png'), pygame.image.load('assets/map01/player/L6.png'),
-                 pygame.image.load('assets/map01/player/L7.png'), pygame.image.load('assets/map01/player/L8.png'),
-                 pygame.image.load('assets/map01/player/L9.png')]
+                 pygame.image.load('assets/map01/player/L5.png'), pygame.image.load('assets/map01/player/L6.png')]
 
     walk_down = None
 
     walk_right = [pygame.image.load('assets/map01/player/R1.png'), pygame.image.load('assets/map01/player/R2.png'),
                   pygame.image.load('assets/map01/player/R3.png'), pygame.image.load('assets/map01/player/R4.png'),
-                  pygame.image.load('assets/map01/player/R5.png'), pygame.image.load('assets/map01/player/R6.png'),
-                  pygame.image.load('assets/map01/player/R7.png'), pygame.image.load('assets/map01/player/R8.png'),
-                  pygame.image.load('assets/map01/player/R9.png')]
+                  pygame.image.load('assets/map01/player/R5.png'), pygame.image.load('assets/map01/player/R6.png')]
 
-    bot_idle = None
+    bot_idle = pygame.image.load('assets/map01/bot/bot1/idle.png')
 
     bot_up = None
 
-    bot_left = [pygame.image.load('assets/map01/bot/L1E.png'), pygame.image.load('assets/map01/bot/L2E.png'),
-                pygame.image.load('assets/map01/bot/L3E.png'), pygame.image.load('assets/map01/bot/L4E.png'),
-                pygame.image.load('assets/map01/bot/L5E.png'), pygame.image.load('assets/map01/bot/L6E.png'),
-                pygame.image.load('assets/map01/bot/L7E.png'), pygame.image.load('assets/map01/bot/L8E.png'),
-                pygame.image.load('assets/map01/bot/L1E.png')]
+    bot_left = [pygame.image.load('assets/map01/bot/bot1/L1.png'), pygame.image.load('assets/map01/bot/bot1/L2.png'),
+                pygame.image.load('assets/map01/bot/bot1/L3.png'), pygame.image.load('assets/map01/bot/bot1/L4.png'),
+                pygame.image.load('assets/map01/bot/bot1/L5.png'), pygame.image.load('assets/map01/bot/bot1/L6.png')]
 
     bot_down = None
 
-    bot_right = [pygame.image.load('assets/map01/bot/R11E.png'), pygame.image.load('assets/map01/bot/R2E.png'),
-                 pygame.image.load('assets/map01/bot/R3E.png'), pygame.image.load('assets/map01/bot/R4E.png'),
-                 pygame.image.load('assets/map01/bot/R5E.png'), pygame.image.load('assets/map01/bot/R6E.png'),
-                 pygame.image.load('assets/map01/bot/R7E.png'), pygame.image.load('assets/map01/bot/R8E.png'),
-                 pygame.image.load('assets/map01/bot/R1E.png')]
+    bot_right = [pygame.image.load('assets/map01/bot/bot1/R1.png'), pygame.image.load('assets/map01/bot/bot1/R2.png'),
+                pygame.image.load('assets/map01/bot/bot1/R3.png'), pygame.image.load('assets/map01/bot/bot1/R4.png'),
+                pygame.image.load('assets/map01/bot/bot1/R5.png'), pygame.image.load('assets/map01/bot/bot1/R6.png')]
 
-    wall_texture = pygame.image.load('assets/map01/wall/grey_bricks.jpg')
+    walk_up = None
+
+    walk_left = [pygame.image.load('assets/map01/player/L1.png'), pygame.image.load('assets/map01/player/L2.png'),
+                 pygame.image.load('assets/map01/player/L3.png'), pygame.image.load('assets/map01/player/L4.png'),
+                 pygame.image.load('assets/map01/player/L5.png'), pygame.image.load('assets/map01/player/L6.png')]
+
+    walk_down = None
+
+    walk_right = [pygame.image.load('assets/map01/player/R1.png'), pygame.image.load('assets/map01/player/R2.png'),
+                  pygame.image.load('assets/map01/player/R3.png'), pygame.image.load('assets/map01/player/R4.png'),
+                  pygame.image.load('assets/map01/player/R5.png'), pygame.image.load('assets/map01/player/R6.png')]
+
+    bot_idle = pygame.image.load('assets/map01/bot/bot1/idle.png')
+
+    bot_up = None
+
+    bot_left = [pygame.image.load('assets/map01/bot/bot1/L1.png'), pygame.image.load('assets/map01/bot/bot1/L2.png'),
+                pygame.image.load('assets/map01/bot/bot1/L3.png'), pygame.image.load('assets/map01/bot/bot1/L4.png'),
+                pygame.image.load('assets/map01/bot/bot1/L5.png'), pygame.image.load('assets/map01/bot/bot1/L6.png')]
+
+    bot_down = None
+
+    bot_right = [pygame.image.load('assets/map01/bot/bot1/R1.png'), pygame.image.load('assets/map01/bot/bot1/R2.png'),
+                 pygame.image.load('assets/map01/bot/bot1/R3.png'), pygame.image.load('assets/map01/bot/bot1/R4.png'),
+                 pygame.image.load('assets/map01/bot/bot1/R5.png'), pygame.image.load('assets/map01/bot/bot1/R6.png')]
+
+    bot2_idle = pygame.image.load('assets/map01/bot/bot2/idle.png')
+
+    bot2_up = None
+
+    bot2_left = [pygame.image.load('assets/map01/bot/bot2/L1.png'), pygame.image.load('assets/map01/bot/bot2/L2.png'),
+                pygame.image.load('assets/map01/bot/bot2/L3.png'), pygame.image.load('assets/map01/bot/bot2/L4.png'),
+                pygame.image.load('assets/map01/bot/bot2/L5.png'), pygame.image.load('assets/map01/bot/bot2/L6.png')]
+
+    bot2_down = None
+
+    bot2_right = [pygame.image.load('assets/map01/bot/bot2/R1.png'), pygame.image.load('assets/map01/bot/bot2/R2.png'),
+                 pygame.image.load('assets/map01/bot/bot2/R3.png'), pygame.image.load('assets/map01/bot/bot2/R4.png'),
+                 pygame.image.load('assets/map01/bot/bot2/R5.png'), pygame.image.load('assets/map01/bot/bot2/R6.png')]
+
+    # define the ground
+    ground = Ground(screen_width, screen_height, ground_texture)
 
     # define player
     player = MyPlayer(x_pos, y_pos, screen, walk_up, walk_left, walk_down, walk_right, idle, 5, developer_mode)
 
     # define the bots
     bots = [Bot(200, 300, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
-            Bot(600, 300, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode)]
+            Bot(600, 300, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode),
+            Bot(200, 300, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
+            Bot(600, 300, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode)]
 
     # define the walls
     walls = [Wall(0, 0, 150, 250, wall_texture), Wall(300, 0, 300, 200, wall_texture),
@@ -77,6 +129,8 @@ def map01(x_pos, y_pos, developer_mode):
         # clear screen
         screen.fill((0, 0, 0))
 
+        ground.draw(screen)
+
         # key press for player
         key = pygame.key.get_pressed()
         player.move(key)
@@ -92,6 +146,10 @@ def map01(x_pos, y_pos, developer_mode):
             bot.check_collision(mp)
             # if player collide bots it goes to game over screen and pass player position of map00 for new start
             if player.rect.colliderect(bot.rect):
+                sound_effect = pygame.mixer.Sound('assets/map01/sound/lose.wav')
+                sound_effect.set_volume(0.2)
+                sound_effect.play()
+                pygame.mixer.music.stop()
                 return "game_over", 390, 435
 
         # player collide check with walls
@@ -118,8 +176,7 @@ def map01(x_pos, y_pos, developer_mode):
         # player collide with map changer
         # return map number and player new position on that map
         if player.rect.colliderect(mp[0]):
-            pass
-            # return "02", 34, 321
+            return "map02", player.x, 545
 
         if player.rect.colliderect(mp[1]):
             pass

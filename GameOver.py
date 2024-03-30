@@ -44,8 +44,11 @@ def game_over():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
                 if try_again_button.collidepoint(mouse_pos):
+                    sound_effect = pygame.mixer.Sound('assets/main_menu/sound/start.mp3')
+                    sound_effect.set_volume(0.2)
+                    sound_effect.play()
                     # The try again button was clicked
-                    return "01" # Exit the game over screen
+                    return "map01" # Exit the game over screen
                 if main_menu_button.collidepoint(mouse_pos):
                     # The main menu button was clicked
                     return "main_menu" # Exit the game over screen
