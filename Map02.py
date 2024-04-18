@@ -17,6 +17,13 @@ def map02(x_pos, y_pos, developer_mode):
     pygame.display.set_caption('Prison Escape')
     screen = pygame.display.set_mode((screen_width, screen_height))
 
+    # load music
+    pygame.mixer.music.load('assets/map01/sound/music.wav')
+    # adjust the music volume to 0.4
+    pygame.mixer.music.set_volume(0.4)
+    # loop the music
+    pygame.mixer.music.play(-1)
+
     # load textures
     ground_texture = pygame.image.load('assets/map01/ground/ground.jpg')
 
@@ -147,7 +154,8 @@ def map02(x_pos, y_pos, developer_mode):
             # return "04", 34, 321
 
         if player.rect.colliderect(mp[3]):
-            return "map01", player.x, 7
+            pass
+            # return "04", 34, 321
 
         if player.rect.colliderect(mp[4]):
             # return "05", 34, 321

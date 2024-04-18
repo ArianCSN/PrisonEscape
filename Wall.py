@@ -12,6 +12,5 @@ class Wall:
         for i in range(self.rect.left, self.rect.right, self.texture_width):
             for j in range(self.rect.top, self.rect.bottom, self.texture_height):
                 # Calculate the area to blit on screen
-                area = pygame.Rect(i, j, min(self.texture_width, self.rect.right - i),
-                                   min(self.texture_height, self.rect.bottom - j))
+                area = pygame.Rect(i, j, min(self.texture_width, self.rect.right - i), min(self.texture_height, self.rect.bottom - j))
                 screen.blit(self.texture, area, area)
