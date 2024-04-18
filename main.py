@@ -4,8 +4,8 @@ from GameOver import game_over
 from Menu import main_menu
 
 # define the initial player position for map 01
-x_pos = 390
-y_pos = 435
+x_pos = 780
+y_pos = 390
 
 # define the map number
 flag = "main_menu"

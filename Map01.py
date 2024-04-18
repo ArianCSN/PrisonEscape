@@ -12,50 +12,17 @@ def map01(x_pos, y_pos, developer_mode):
     pygame.mixer.init()
 
     # set up screen
-    screen_width = 800
-    screen_height = 600
+    screen_width = 1536
+    screen_height = 864
     pygame.display.set_caption('Prison Escape')
-    screen = pygame.display.set_mode((screen_width, screen_height))
+    screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 
-    # load music
-    pygame.mixer.music.load('assets/map01/sound/music.wav')
-    # adjust the music volume to 0.4
-    pygame.mixer.music.set_volume(0.4)
-    # loop the music
-    pygame.mixer.music.play(-1)
-
-    # load textures
+    # load texture
     ground_texture = pygame.image.load('assets/map01/ground/ground.jpg')
 
-    wall_texture = pygame.image.load('assets/map01/wall/grey_bricks.jpg')
+    wall_texture = pygame.image.load('assets/map01/wall/wall.png')
 
     idle = pygame.image.load('assets/map01/player/idle.png')
-
-    walk_up = None
-
-    walk_left = [pygame.image.load('assets/map01/player/L1.png'), pygame.image.load('assets/map01/player/L2.png'),
-                 pygame.image.load('assets/map01/player/L3.png'), pygame.image.load('assets/map01/player/L4.png'),
-                 pygame.image.load('assets/map01/player/L5.png'), pygame.image.load('assets/map01/player/L6.png')]
-
-    walk_down = None
-
-    walk_right = [pygame.image.load('assets/map01/player/R1.png'), pygame.image.load('assets/map01/player/R2.png'),
-                  pygame.image.load('assets/map01/player/R3.png'), pygame.image.load('assets/map01/player/R4.png'),
-                  pygame.image.load('assets/map01/player/R5.png'), pygame.image.load('assets/map01/player/R6.png')]
-
-    bot_idle = pygame.image.load('assets/map01/bot/bot1/idle.png')
-
-    bot_up = None
-
-    bot_left = [pygame.image.load('assets/map01/bot/bot1/L1.png'), pygame.image.load('assets/map01/bot/bot1/L2.png'),
-                pygame.image.load('assets/map01/bot/bot1/L3.png'), pygame.image.load('assets/map01/bot/bot1/L4.png'),
-                pygame.image.load('assets/map01/bot/bot1/L5.png'), pygame.image.load('assets/map01/bot/bot1/L6.png')]
-
-    bot_down = None
-
-    bot_right = [pygame.image.load('assets/map01/bot/bot1/R1.png'), pygame.image.load('assets/map01/bot/bot1/R2.png'),
-                pygame.image.load('assets/map01/bot/bot1/R3.png'), pygame.image.load('assets/map01/bot/bot1/R4.png'),
-                pygame.image.load('assets/map01/bot/bot1/R5.png'), pygame.image.load('assets/map01/bot/bot1/R6.png')]
 
     walk_up = None
 
@@ -104,20 +71,32 @@ def map01(x_pos, y_pos, developer_mode):
     player = MyPlayer(x_pos, y_pos, screen, walk_up, walk_left, walk_down, walk_right, idle, 5, developer_mode)
 
     # define the bots
-    bots = [Bot(200, 300, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
-            Bot(600, 300, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode),
-            Bot(200, 300, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
-            Bot(600, 300, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode)]
+    bots = [Bot(200, 90, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
+            Bot(240, 480, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode),
+            Bot(630, 420, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
+            Bot(540, 750, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode),
+            Bot(1320, 420, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
+            Bot(990, 230, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode)]
 
     # define the walls
-    walls = [Wall(0, 0, 150, 250, wall_texture), Wall(300, 0, 300, 200, wall_texture),
-             Wall(600, 0, 200, 80, wall_texture), Wall(760, 230, 40, 170, wall_texture),
-             Wall(650, 400, 200, 200, wall_texture), Wall(340, 525, 160, 75, wall_texture),
-             Wall(0, 400, 150, 200, wall_texture)]
+    walls = [Wall(0, 0, 750, 60, wall_texture), Wall(0, 60, 60, 300, wall_texture),
+             Wall(170, 150, 180, 90, wall_texture), Wall(60, 300, 150, 60, wall_texture),
+             Wall(120, 360, 90, 270, wall_texture), Wall(0, 450, 60, 413, wall_texture),
+             Wall(60, 690, 210, 113, wall_texture), Wall(60, 803, 390, 60, wall_texture),
+             Wall(300, 180, 150, 570, wall_texture), Wall(390, 600, 360, 90, wall_texture),
+             Wall(450, 450, 90, 240, wall_texture), Wall(450, 833, 180, 30, wall_texture),
+             Wall(540, 210, 180, 150, wall_texture), Wall(720, 270, 30, 60, wall_texture),
+             Wall(720, 270, 450, 60, wall_texture), Wall(870, 330, 300, 90, wall_texture),
+             Wall(630, 480, 420, 120, wall_texture), Wall(630, 600, 120, 150, wall_texture),
+             Wall(840, 0, 695, 180, wall_texture), Wall(1260, 180, 275, 180, wall_texture),
+             Wall(630, 803, 120, 60, wall_texture), Wall(840, 683, 695, 180, wall_texture),
+             Wall(1110, 420, 60, 90, wall_texture), Wall(1050, 570, 240, 30, wall_texture),
+             Wall(1170, 450, 300, 60, wall_texture), Wall(1350, 510, 120, 120, wall_texture),
+             Wall(1500, 450, 35, 235, wall_texture)]
 
     # hidden walls that change maps
-    mp = [MapChanger(150, 1, 150, 1), MapChanger(799, 80, 1, 150), MapChanger(500, 599, 150, 1),
-          MapChanger(150, 599, 190, 1), MapChanger(0, 250, 1, 150)]
+    mp = [MapChanger(750, 0, 90, 2), MapChanger(1535, 360, 2, 90),
+          MapChanger(750, 863, 90, 2), MapChanger(0, 360, 2, 90)]
 
     # main loop of the map
     running = True
@@ -133,6 +112,9 @@ def map01(x_pos, y_pos, developer_mode):
 
         # key press for player
         key = pygame.key.get_pressed()
+        if key[pygame.K_ESCAPE]:
+            exit()
+
         player.move(key)
 
         # Draw the walls
@@ -150,7 +132,7 @@ def map01(x_pos, y_pos, developer_mode):
                 sound_effect.set_volume(0.2)
                 sound_effect.play()
                 pygame.mixer.music.stop()
-                return "game_over", 390, 435
+                return "game_over", 780, 390
 
         # player collide check with walls
         player.check_collision(walls)
@@ -179,8 +161,7 @@ def map01(x_pos, y_pos, developer_mode):
             return "map02", player.x, 545
 
         if player.rect.colliderect(mp[1]):
-            pass
-            # return "03", 34, 321
+            return "map03", player.x, player.y
 
         if player.rect.colliderect(mp[2]):
             pass
@@ -189,10 +170,6 @@ def map01(x_pos, y_pos, developer_mode):
         if player.rect.colliderect(mp[3]):
             pass
             # return "04", 34, 321
-
-        if player.rect.colliderect(mp[4]):
-            # return "05", 34, 321
-            pass
 
         # update display
         pygame.display.flip()

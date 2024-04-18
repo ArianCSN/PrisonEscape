@@ -4,11 +4,11 @@ import sys
 # Initialize Pygame
 pygame.init()
 
-screen_width = 800
-screen_height = 600
-# Set up the display
-screen = pygame.display.set_mode((screen_width, screen_height))
+# set up screen
+screen_width = 1536
+screen_height = 864
 pygame.display.set_caption('Main menu')
+screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 
 
 # Main menu loop
@@ -35,17 +35,17 @@ def main_menu():
         play_text_rect = play_text.get_rect(center=play_button.center)
         screen.blit(play_text, play_text_rect)
 
-        # Draw the hidden "Developer Mode" button
-        dev_mode_button = pygame.Rect(790, 589, 200, 50)
-        pygame.draw.rect(screen, (0, 0, 0), dev_mode_button)
-
         # Draw the "Exit" button
-        exit_button = pygame.Rect(screen_width // 2 - 100, screen_height // 2 + 80, 200, 50)
+        exit_button = pygame.Rect(screen.get_width() / 2 - 100, screen.get_height() / 2 + 80, 200, 50)
         pygame.draw.rect(screen, (89, 26, 26), exit_button)
         exit_font = pygame.font.Font(None, 36)
         exit_text = exit_font.render('Exit', True, (255, 255, 255))
         exit_text_rect = exit_text.get_rect(center=exit_button.center)
         screen.blit(exit_text, exit_text_rect)
+
+        # Draw the hidden "Developer Mode" button
+        dev_mode_button = pygame.Rect(1530, 860, 10, 10)
+        pygame.draw.rect(screen, (0, 0, 0), dev_mode_button)
 
         # Check for events
         for event in pygame.event.get():
@@ -59,11 +59,27 @@ def main_menu():
                     sound_effect.set_volume(0.2)
                     sound_effect.play()
                     pygame.mixer.music.stop()
+
+                    # load music
+                    pygame.mixer.music.load('assets/sound/music.wav')
+                    # adjust the music volume to 0.4
+                    pygame.mixer.music.set_volume(0.4)
+                    # loop the music
+                    pygame.mixer.music.play(-1)
+
                     # Start the game
                     return "map01", 0
                 elif dev_mode_button.collidepoint(mouse_pos):
                     pygame.mixer.music.stop()
                     # Toggle developer mode
+
+                    # load music
+                    pygame.mixer.music.load('assets/sound/music.wav')
+                    # adjust the music volume to 0.4
+                    pygame.mixer.music.set_volume(0.4)
+                    # loop the music
+                    pygame.mixer.music.play(-1)
+
                     return "map01", 1
                 elif exit_button.collidepoint(mouse_pos):
                     # Exit the game
