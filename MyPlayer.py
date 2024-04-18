@@ -3,6 +3,8 @@ import pygame
 
 class MyPlayer:
     def __init__(self, x, y, screen, walk_up, walk_left, walk_down, walk_right, idle, player_speed, developer_mode):
+        self.max_width = None
+        self.max_height = None
         self.speed = player_speed
         self.screen = screen
         self.walk_up = walk_up
@@ -33,13 +35,13 @@ class MyPlayer:
         elif (key[pygame.K_a] or key[pygame.K_LEFT]) and self.x > 1:
             self.dx = -self.speed
             self.direction = 'left'
-        elif (key[pygame.K_s] or key[pygame.K_DOWN]) and self.y < 600 - self.max_height:
+        elif (key[pygame.K_s] or key[pygame.K_DOWN]) and self.y < self.screen.get_height() - self.max_height:
             self.dy = self.speed
             if self.walk_down:
                 self.direction = 'down'
             elif self.direction == 'idle':
                 self.direction = 'left'
-        elif (key[pygame.K_d] or key[pygame.K_RIGHT]) and self.x < 800 - self.max_width:
+        elif (key[pygame.K_d] or key[pygame.K_RIGHT]) and self.x < self.screen.get_width() - self.max_width:
             self.dx = self.speed
             self.direction = 'right'
         else:
@@ -51,7 +53,7 @@ class MyPlayer:
         self.rect.x = self.x
         self.rect.y = self.y
 
-        if self.walk_count + 1 >= len(self.walk_left)*3:
+        if self.walk_count + 1 >= len(self.walk_left) * 3:
             self.walk_count = 0
 
         if self.direction == 'up':
@@ -107,7 +109,6 @@ class MyPlayer:
                 if self.max_height < x.get_height():
                     self.max_height = x.get_height()
 
-
         if self.walk_right:
             for x in self.walk_right:
                 if self.max_width < x.get_width():
@@ -117,7 +118,7 @@ class MyPlayer:
                     self.max_height = x.get_height()
 
         if self.max_width < self.idle.get_width():
-            self.max_width =self.idle.get_width()
+            self.max_width = self.idle.get_width()
 
         if self.max_height < self.idle.get_height():
             self.max_height = self.idle.get_height()
@@ -125,4 +126,3 @@ class MyPlayer:
     def draw_rect(self, screen):
         # Draw the rect with a distinct color (e.g., blue)
         pygame.draw.rect(screen, (0, 255, 0), self.rect, 1)  # The '1' specifies the thickness of the line
-
