@@ -11,12 +11,19 @@ pygame.display.set_caption('Main menu')
 screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 
 
-# Main menu loop
 def main_menu():
+    # Initializes Pygame's mixer module for audio playback.
     pygame.mixer.init()
+    # Loads the background music
     pygame.mixer.music.load('assets/main_menu/sound/music.mp3')
+    # Sets the music to loop indefinitely
     pygame.mixer.music.play(-1)
+    # Adjusts the music volume to 20%
     pygame.mixer.music.set_volume(0.2)
+    # Makes the mouse cursor visible
+    pygame.mouse.set_visible(True)
+
+    # Enters the main menu loop
     menu_running = True
     while menu_running:
         screen.fill((0, 0, 0))  # Clear the screen

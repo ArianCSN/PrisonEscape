@@ -1,6 +1,7 @@
 import pygame
 import sys
 
+
 def game_over():
     # set up screen
     screen_width = 1536
@@ -8,8 +9,11 @@ def game_over():
     pygame.display.set_caption('Main menu')
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 
-    font = pygame.font.Font(None, 80)
+    # Makes the mouse cursor visible
+    pygame.mouse.set_visible(True)
+
     # Display the game over message
+    font = pygame.font.Font(None, 80)
     screen.fill((0, 0, 0))  # Clear the screen
     text = font.render('Game Over', True, (255, 0, 0))
     text_rect = text.get_rect(center=(screen.get_width() / 2, screen.get_height() / 2 - 100))
@@ -61,10 +65,10 @@ def game_over():
                     pygame.mixer.music.play(-1)
 
                     # The try again button was clicked
-                    return "map01" # Exit the game over screen
+                    return "map01"  # Exit the game over screen
                 if main_menu_button.collidepoint(mouse_pos):
                     # The main menu button was clicked
-                    return "main_menu" # Exit the game over screen
+                    return "main_menu"  # Exit the game over screen
                 if exit_button.collidepoint(mouse_pos):
                     # The exit button was clicked
                     exit()  # Exit the game completely

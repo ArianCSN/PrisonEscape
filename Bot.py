@@ -28,6 +28,11 @@ class Bot:
     def move(self):
         self.dx = 0
         self.dy = 0
+
+        # Bot Movement Logic
+        # - Determines bot movement based on the value of self.random_move.
+        # - Updates the bot direction and facing accordingly.
+        # - Adjusts the bot speed and idle state.
         if self.random_move == "1":
             self.dy = -self.speed
             self.max_travel -= 1
@@ -80,29 +85,46 @@ class Bot:
             if self.walk_count + 1 >= min(len(self.bot_left), len(self.bot_right))*3:
                 self.walk_count = 0
 
+        # Animation Logic for Bot Movement and Idle State
         if self.direction == 'up':
+            # Animate walking texture when moving up
             self.screen.blit(self.bot_up[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
         elif self.direction == 'left':
+            # Animate walking texture when moving left
             self.screen.blit(self.bot_left[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
         elif self.direction == 'down':
+            # Animate walking texture when moving down
             self.screen.blit(self.bot_down[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
         elif self.direction == 'right':
+            # Animate walking texture when moving right
             self.screen.blit(self.bot_right[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
-        elif self.direction == 'idle' and self.bot_idle is not None:
-            self.screen.blit(self.bot_idle, (self.x, self.y))
-        elif self.direction == 'idle' and self.facing == "up":
-            self.screen.blit(self.bot_up[0], (self.x, self.y))
-        elif self.direction == 'idle' and self.facing == "left":
-            self.screen.blit(self.bot_left[0], (self.x, self.y))
-        elif self.direction == 'idle' and self.facing == "down":
-            self.screen.blit(self.bot_down[0], (self.x, self.y))
-        elif self.direction == 'idle' and self.facing == "right":
-            self.screen.blit(self.bot_right[0], (self.x, self.y))
+        elif self.bot_idle is not None and self.direction == 'idle':
+            # Handle idle state
+            if self.facing == "right" or self.facing == "up":
+                # Animate idle texture (normal orientation)
+                self.screen.blit(self.bot_idle, (self.x, self.y))
+            elif self.facing == "left" or self.facing == "down":
+                # Flip and animate idle texture horizontally
+                self.screen.blit(pygame.transform.flip(self.bot_idle, True, False), (self.x, self.y))
+        else:
+            # No idle texture available, use the first texture of every move
+            if self.facing == "up":
+                self.screen.blit(self.bot_up[0], (self.x, self.y))
+            elif self.facing == "left":
+                self.screen.blit(self.bot_left[0], (self.x, self.y))
+            elif self.facing == "down":
+                self.screen.blit(self.bot_down[0], (self.x, self.y))
+            elif self.facing == "right":
+                self.screen.blit(self.bot_right[0], (self.x, self.y))
 
+    # Calculate Bot Rectangular Size
+    # - Determines the maximum width and height required to enclose the bot textures.
+    # - Iterates through each texture (up, left, down, right) to find the largest dimensions.
+    # - Sets self.max_width and self.max_height accordingly.
     def check_size(self):
         self.max_width = 0
         self.max_height = 0

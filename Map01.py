@@ -17,6 +17,10 @@ def map01(x_pos, y_pos, developer_mode):
     pygame.display.set_caption('Prison Escape')
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 
+    # Hide the mouse cursor
+    if not developer_mode:
+        pygame.mouse.set_visible(False)
+
     # load texture
     ground_texture = pygame.image.load('assets/map01/ground/ground.jpg')
 
@@ -67,10 +71,22 @@ def map01(x_pos, y_pos, developer_mode):
     # define the ground
     ground = Ground(screen_width, screen_height, ground_texture)
 
-    # define player
+    # Create the player character
+    # The player is represented by an instance of the MyPlayer class:
+    # - (x_pos, y_pos): Initial position on the screen
+    # - screen: Pygame screen object
+    # - Textures for different directions (walk_up, walk_left, walk_down, walk_right, idle)
+    # - Speed (5th input): Controls how fast the player moves (higher values mean faster movement)
+    # - developer_mode: A flag indicating whether to enable developer-specific features
     player = MyPlayer(x_pos, y_pos, screen, walk_up, walk_left, walk_down, walk_right, idle, 5, developer_mode)
 
-    # define the bots
+    # Define the bots
+    # Each bot is initialized with specific parameters:
+    # - (x, y): Initial position on the screen
+    # - screen: Pygame screen object
+    # - Textures for different directions (up, left, down, right, idle)
+    # - Speed (9th input): Controls how fast the bot moves (higher values mean faster movement)
+    # - developer_mode: A flag indicating whether to enable developer-specific features
     bots = [Bot(200, 90, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
             Bot(240, 480, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode),
             Bot(630, 420, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
@@ -78,7 +94,11 @@ def map01(x_pos, y_pos, developer_mode):
             Bot(1320, 420, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
             Bot(990, 230, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode)]
 
-    # define the walls
+    # Define the walls
+    # Each wall is represented by a rectangular area with specific dimensions:
+    # - (x, y): Top-left corner coordinates
+    # - Width and height of the wall
+    # - Texture (wall_texture) used for rendering
     walls = [Wall(0, 0, 750, 60, wall_texture), Wall(0, 60, 60, 300, wall_texture),
              Wall(170, 150, 180, 90, wall_texture), Wall(60, 300, 150, 60, wall_texture),
              Wall(120, 360, 90, 270, wall_texture), Wall(0, 450, 60, 413, wall_texture),
@@ -94,11 +114,15 @@ def map01(x_pos, y_pos, developer_mode):
              Wall(1170, 450, 300, 60, wall_texture), Wall(1350, 510, 120, 120, wall_texture),
              Wall(1500, 450, 35, 235, wall_texture)]
 
-    # hidden walls that change maps
+    # Hidden walls that change maps
+    # These invisible walls act as triggers to transition between different maps :
+    # - (x, y): Top-left corner coordinates
+    # - Width and height of the trigger area
+    # - MapChanger objects handle map transitions
     mp = [MapChanger(750, 0, 90, 2), MapChanger(1535, 360, 2, 90),
           MapChanger(750, 863, 90, 2), MapChanger(0, 360, 2, 90)]
 
-    # main loop of the map
+    # main loop
     running = True
     while running:
         for event in pygame.event.get():
@@ -126,7 +150,7 @@ def map01(x_pos, y_pos, developer_mode):
             bot.move()
             bot.check_collision(walls)
             bot.check_collision(mp)
-            # if player collide bots it goes to game over screen and pass player position of map00 for new start
+            # if player collide bots it goes to game over screen and pass player position of map01 for new start
             if player.rect.colliderect(bot.rect):
                 sound_effect = pygame.mixer.Sound('assets/map01/sound/lose.wav')
                 sound_effect.set_volume(0.2)
@@ -158,10 +182,15 @@ def map01(x_pos, y_pos, developer_mode):
         # player collide with map changer
         # return map number and player new position on that map
         if player.rect.colliderect(mp[0]):
-            return "map02", player.x, 545
+            # Due to differentiation in player texture length between map01 and map02
+            # subtract 20 from player's x position to ensure no collision with the wall occurs.
+            if player.x > 793:
+                player.x -= 20
+            return "map02", player.x, 835
 
         if player.rect.colliderect(mp[1]):
-            return "map03", player.x, player.y
+            pass
+            # return "map03", player.x, player.y
 
         if player.rect.colliderect(mp[2]):
             pass

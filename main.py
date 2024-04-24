@@ -3,14 +3,16 @@ from Map02 import map02
 from GameOver import game_over
 from Menu import main_menu
 
-# define the initial player position for map 01
+# define the initial player position for map01
 x_pos = 780
 y_pos = 390
 
 # define the map number
 flag = "main_menu"
 
-# turn on and off developer mode (map pos and player and bots hit box and more...)
+# Developer Mode Flag
+# - Set to 1 to enable developer-specific features (e.g., display map positions, hit boxes).
+# - When enabled, additional information useful for debugging or development is shown .
 developer_mode = 0
 
 while True:

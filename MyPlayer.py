@@ -16,6 +16,7 @@ class MyPlayer:
         self.y = y
         self.walk_count = 0
         self.direction = 'idle'
+        self.facing = "right"
         self.developer_mode = developer_mode
         self.dx = 0
         self.dy = 0
@@ -25,26 +26,44 @@ class MyPlayer:
     def move(self, key):
         self.dx = 0
         self.dy = 0
-        # Move the player
+
+        # Player Movement Logic
+        # - Handles player movement based on keyboard input (WASD or arrow keys).
+        # - Updates the player's direction and facing based on movement and idle states.
+        # - Determines which texture to render for the player (up, down, left, right, or idle).
         if (key[pygame.K_w] or key[pygame.K_UP]) and self.y > 1:
+            # Moving up
             self.dy = -self.speed
+            self.facing = 'up'
             if self.walk_up:
                 self.direction = 'up'
+                self.facing = "up"
             elif self.direction == 'idle':
                 self.direction = 'right'
+            else:
+                self.facing = "right"
         elif (key[pygame.K_a] or key[pygame.K_LEFT]) and self.x > 1:
+            # Moving left
             self.dx = -self.speed
+            self.facing = 'left'
             self.direction = 'left'
         elif (key[pygame.K_s] or key[pygame.K_DOWN]) and self.y < self.screen.get_height() - self.max_height:
+            # Moving down
             self.dy = self.speed
             if self.walk_down:
                 self.direction = 'down'
+                self.facing = "down"
             elif self.direction == 'idle':
                 self.direction = 'left'
+            else:
+                self.facing = "left"
         elif (key[pygame.K_d] or key[pygame.K_RIGHT]) and self.x < self.screen.get_width() - self.max_width:
+            # Moving right
             self.dx = self.speed
+            self.facing = 'right'
             self.direction = 'right'
         else:
+            # Idle state
             self.direction = 'idle'
             self.walk_count = 0
 
@@ -56,21 +75,41 @@ class MyPlayer:
         if self.walk_count + 1 >= len(self.walk_left) * 3:
             self.walk_count = 0
 
+        # Animation Logic for Player Movement and Idle State
         if self.direction == 'up':
+            # Animate walking texture when moving up
             self.screen.blit(self.walk_up[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
         elif self.direction == 'left':
+            # Animate walking texture when moving left
             self.screen.blit(self.walk_left[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
         elif self.direction == 'down':
+            # Animate walking texture when moving down
             self.screen.blit(self.walk_down[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
         elif self.direction == 'right':
+            # Animate walking texture when moving right
             self.screen.blit(self.walk_right[self.walk_count // 3], (self.x, self.y))
             self.walk_count += 1
+        elif self.idle is not None and self.direction == 'idle':
+            # Handle idle state
+            if self.facing == "right" or self.facing == "up":
+                # Animate idle texture (normal orientation)
+                self.screen.blit(self.idle, (self.x, self.y))
+            elif self.facing == "left" or self.facing == "down":
+                # Flip and animate idle texture horizontally
+                self.screen.blit(pygame.transform.flip(self.idle, True, False), (self.x, self.y))
         else:
-            self.screen.blit(self.idle, (self.x, self.y))
-            self.walk_count = 0
+            # No idle texture available, use the first texture of every move
+            if self.facing == "up":
+                self.screen.blit(self.walk_up[0], (self.x, self.y))
+            elif self.facing == "left":
+                self.screen.blit(self.walk_left[0], (self.x, self.y))
+            elif self.facing == "down":
+                self.screen.blit(self.walk_down[0], (self.x, self.y))
+            elif self.facing == "right":
+                self.screen.blit(self.walk_right[0], (self.x, self.y))
 
     def check_collision(self, objects):
         # Create a new rect for the position we moved to
@@ -81,6 +120,10 @@ class MyPlayer:
                 self.y -= self.dy
                 break
 
+    # Calculate player Rectangular Size
+    # - Determines the maximum width and height required to enclose the player textures.
+    # - Iterates through each texture (up, left, down, right) to find the largest dimensions.
+    # - Sets self.max_width and self.max_height accordingly.
     def check_size(self):
 
         self.max_width = 0
