@@ -174,7 +174,7 @@ def map01(x_pos, y_pos, developer_mode):
             for bot in bots:
                 bot.draw_rect(screen)
             for mp_dev in mp:
-                mp_dev.draw(screen)
+                mp_dev.draw(screen, (0, 0, 255))
 
         # Frame rate
         pygame.time.Clock().tick(30)
@@ -189,8 +189,11 @@ def map01(x_pos, y_pos, developer_mode):
             return "map02", player.x, 835
 
         if player.rect.colliderect(mp[1]):
-            pass
-            # return "map03", player.x, player.y
+            # Due to differentiation in player texture length between map01 and map03
+            # subtract 2 from player's y position to ensure no collision with the wall occurs.
+            if player.y > 831:
+                player.y -= 2
+            return "map03", 3, player.y
 
         if player.rect.colliderect(mp[2]):
             pass

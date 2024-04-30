@@ -160,11 +160,12 @@ class MyPlayer:
                 if self.max_height < x.get_height():
                     self.max_height = x.get_height()
 
-        if self.max_width < self.idle.get_width():
-            self.max_width = self.idle.get_width()
+        if self.idle:
+            if self.max_width < self.idle.get_width():
+                self.max_width = self.idle.get_width()
 
-        if self.max_height < self.idle.get_height():
-            self.max_height = self.idle.get_height()
+            if self.max_height < self.idle.get_height():
+                self.max_height = self.idle.get_height()
 
     def draw_rect(self, screen):
         # Draw the rect with a distinct color (e.g., blue)

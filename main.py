@@ -1,5 +1,6 @@
 from Map01 import map01
 from Map02 import map02
+from Map03 import map03
 from GameOver import game_over
 from Menu import main_menu
 
@@ -25,6 +26,9 @@ while True:
 
     if flag == "map02":
         flag, x_pos, y_pos = map02(x_pos, y_pos, developer_mode)
+
+    if flag == "map03":
+        flag, x_pos, y_pos = map03(x_pos, y_pos, developer_mode)
 
     if flag == "game_over":
         flag = game_over()
