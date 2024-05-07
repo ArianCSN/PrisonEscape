@@ -91,7 +91,7 @@ def map01(x_pos, y_pos, developer_mode):
             Bot(240, 480, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode),
             Bot(630, 420, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
             Bot(540, 750, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode),
-            Bot(1320, 420, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
+            Bot(1320, 400, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
             Bot(990, 230, screen, bot2_up, bot2_left, bot2_down, bot2_right, bot2_idle, 1, developer_mode)]
 
     # Define the walls
@@ -181,23 +181,22 @@ def map01(x_pos, y_pos, developer_mode):
 
         # player collide with map changer
         # return map number and player new position on that map
+        # Due to differentiation in player texture length between map01 and map02
+        # subtract from player's x position to ensure no collision with the wall occurs.
         if player.rect.colliderect(mp[0]):
-            # Due to differentiation in player texture length between map01 and map02
-            # subtract 20 from player's x position to ensure no collision with the wall occurs.
             if player.x > 793:
                 player.x -= 20
             return "map02", player.x, 835
 
         if player.rect.colliderect(mp[1]):
-            # Due to differentiation in player texture length between map01 and map03
-            # subtract 2 from player's y position to ensure no collision with the wall occurs.
             if player.y > 831:
                 player.y -= 2
             return "map03", 3, player.y
 
         if player.rect.colliderect(mp[2]):
-            pass
-            # return "04", 34, 321
+            if player.x > 793:
+                player.x -= 11
+            return "map04", player.x, 2
 
         if player.rect.colliderect(mp[3]):
             pass

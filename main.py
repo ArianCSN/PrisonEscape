@@ -1,8 +1,10 @@
+from GameOver import game_over
+from Menu import main_menu
 from Map01 import map01
 from Map02 import map02
 from Map03 import map03
-from GameOver import game_over
-from Menu import main_menu
+from Map04 import map04
+
 
 # define the initial player position for map01
 x_pos = 780
@@ -29,6 +31,9 @@ while True:
 
     if flag == "map03":
         flag, x_pos, y_pos = map03(x_pos, y_pos, developer_mode)
+
+    if flag == "map04":
+        flag, x_pos, y_pos = map04(x_pos, y_pos, developer_mode)
 
     if flag == "game_over":
         flag = game_over()

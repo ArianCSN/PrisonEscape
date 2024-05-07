@@ -141,7 +141,7 @@ def map03(x_pos, y_pos, developer_mode):
                 TheX = player.x - 522
 
             # Calculate new y-coordinate after teleportation
-            player.y = 60 + TheX
+            player.y = 65 + TheX
             player.x = 1386
 
             # Play teleportation sound effect
@@ -154,7 +154,7 @@ def map03(x_pos, y_pos, developer_mode):
             # Calculate new y-coordinate after teleportation
             TheY = player.y - 60
             player.y = 332
-            player.x = 510 + TheY
+            player.x = 515 + TheY
 
             # Play teleportation sound effect
             sound_effect = pygame.mixer.Sound('assets/map03/sound/teleport.wav')
