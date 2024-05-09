@@ -92,8 +92,8 @@ def map04(x_pos, y_pos, developer_mode):
     # - Width and height of the trigger area
     # - MapChanger objects handle map transitions
     mp = [MapChanger(750, 0, 90, 2), MapChanger(1535, 180, 2, 120),
-          MapChanger(720, 863, 120, 2), MapChanger(630, 0, 2, 120),
-          MapChanger(390, 0, 2, 120), MapChanger(120, 0, 2, 120)]
+          MapChanger(720, 863, 120, 2), MapChanger(0, 630, 2, 120),
+          MapChanger(0, 390, 2, 120), MapChanger(0, 120, 2, 120)]
 
     # main loop
     running = True
@@ -137,11 +137,16 @@ def map04(x_pos, y_pos, developer_mode):
         # options for developer mode
         # show position of mouse on screen
         # show player and bots rect and also hidden map changer with blue color
+        # If the space key is pressed, the player teleport to mouse position
         if developer_mode:
             font = pygame.font.SysFont("", 24)
             x, y = pygame.mouse.get_pos()
             coord_text = font.render(f'X: {x}, Y: {y}', True, (255, 0, 0))
             screen.blit(coord_text, (10, 10))  # Draw the text
+
+            if key[pygame.K_SPACE]:
+                player.x = x
+                player.y = y
 
             player.draw_rect(screen)
             for bot in bots:

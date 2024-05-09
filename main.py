@@ -4,6 +4,7 @@ from Map01 import map01
 from Map02 import map02
 from Map03 import map03
 from Map04 import map04
+from Map05 import map05
 
 
 # define the initial player position for map01
@@ -34,6 +35,9 @@ while True:
 
     if flag == "map04":
         flag, x_pos, y_pos = map04(x_pos, y_pos, developer_mode)
+
+    if flag == "map05":
+        flag, x_pos, y_pos = map05(x_pos, y_pos, developer_mode)
 
     if flag == "game_over":
         flag = game_over()

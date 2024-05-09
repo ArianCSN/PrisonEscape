@@ -164,11 +164,16 @@ def map01(x_pos, y_pos, developer_mode):
         # options for developer mode
         # show position of mouse on screen
         # show player and bots rect and also hidden map changer with blue color
+        # If the space key is pressed, the player teleport to mouse position
         if developer_mode:
             font = pygame.font.SysFont("", 24)
             x, y = pygame.mouse.get_pos()
             coord_text = font.render(f'X: {x}, Y: {y}', True, (255, 0, 0))
             screen.blit(coord_text, (10, 10))  # Draw the text
+
+            if key[pygame.K_SPACE]:
+                player.x = x
+                player.y = y
 
             player.draw_rect(screen)
             for bot in bots:
@@ -199,8 +204,7 @@ def map01(x_pos, y_pos, developer_mode):
             return "map04", player.x, 2
 
         if player.rect.colliderect(mp[3]):
-            pass
-            # return "04", 34, 321
+            return "map05", 1500, player.y
 
         # update display
         pygame.display.flip()
