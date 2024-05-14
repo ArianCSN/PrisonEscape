@@ -186,7 +186,7 @@ def map01(x_pos, y_pos, developer_mode):
 
         # player collide with map changer
         # return map number and player new position on that map
-        # Due to differentiation in player texture length between map01 and map02
+        # Due to differentiation in player texture length between map01 and other maps
         # subtract from player's x position to ensure no collision with the wall occurs.
         if player.rect.colliderect(mp[0]):
             if player.x > 793:

@@ -30,40 +30,51 @@ class Bot:
         self.dy = 0
 
         # Bot Movement Logic
-        # - Determines bot movement based on the value of self.random_move.
-        # - Updates the bot direction and facing accordingly.
-        # - Adjusts the bot speed and idle state.
+        # Determines the bot movement based on the value of self.random_move.
+        # Updates the bot direction and facing accordingly.
+        # Adjusts the bot speed and idle state.
         if self.random_move == "1":
+            # Move bot upwards
             self.dy = -self.speed
             self.max_travel -= 1
             if self.bot_up:
+                # If bot can move up, set direction and facing
                 self.direction = 'up'
                 self.facing = "up"
             elif self.direction == 'idle':
+                # If previously idle, change direction to right
                 self.direction = 'right'
             else:
+                # Otherwise, face right
                 self.facing = "right"
         elif self.random_move == "2":
+            # Move bot leftwards
             self.dx = -self.speed
             self.max_travel -= 1
             self.direction = 'left'
             self.facing = "left"
         elif self.random_move == "3":
+            # Move bot downwards
             self.dy = self.speed
             self.max_travel -= 1
             if self.bot_down:
+                # If bot can move down, set direction and facing
                 self.direction = 'down'
                 self.facing = "down"
             elif self.direction == 'idle':
+                # If previously idle, change direction to left
                 self.direction = 'left'
             else:
+                # Otherwise, face left
                 self.facing = "left"
         elif self.random_move == "4":
+            # Move bot rightwards
             self.dx = self.speed
             self.max_travel -= 1
             self.direction = 'right'
             self.facing = "right"
         else:
+            # No specific movement, decrease travel count and set idle direction
             self.max_travel -= 1
             self.direction = 'idle'
 

@@ -164,13 +164,16 @@ def map02(x_pos, y_pos, developer_mode):
 
         # player collide with map changer
         # return map number and player new position on that map
+        # Due to differentiation in player texture length between map02 and other maps
+        # subtract from player's x position to ensure no collision with the wall occurs.
         if player.rect.colliderect(mp[0]):
             pass
             # return "map02", player.x, 545
 
         if player.rect.colliderect(mp[1]):
-            pass
-            # return "map03", player.x, player.y
+            if player.y > 290:
+                player.y -= 8
+            return "map06", 3, player.y
 
         if player.rect.colliderect(mp[2]):
             return "map01", player.x, 3
