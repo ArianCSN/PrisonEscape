@@ -3,7 +3,7 @@ from Ground import Ground
 from MyPlayer import MyPlayer
 from Bot import Bot
 from Wall import Wall
-from MapChanger import MapChanger
+from InvisibleWall import InvisibleWall
 
 
 def map01(x_pos, y_pos, developer_mode):
@@ -118,9 +118,9 @@ def map01(x_pos, y_pos, developer_mode):
     # These invisible walls act as triggers to transition between different maps :
     # - (x, y): Top-left corner coordinates
     # - Width and height of the trigger area
-    # - MapChanger objects handle map transitions
-    mp = [MapChanger(750, 0, 90, 2), MapChanger(1535, 360, 2, 90),
-          MapChanger(750, 863, 90, 2), MapChanger(0, 360, 2, 90)]
+    # - InvisibleWall objects handle map transitions
+    mp = [InvisibleWall(750, 0, 90, 2), InvisibleWall(1535, 360, 2, 90),
+          InvisibleWall(750, 863, 90, 2), InvisibleWall(0, 360, 2, 90)]
 
     # main loop
     running = True
