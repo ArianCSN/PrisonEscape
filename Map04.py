@@ -169,8 +169,13 @@ def map04(x_pos, y_pos, developer_mode):
             pass
 
         if player.rect.colliderect(mp[3]):
-            pass
-            # return "04", 34, 321
+            return "map08", 1490, player.y
+
+        if player.rect.colliderect(mp[4]):
+            return "map08", 1490, player.y
+
+        if player.rect.colliderect(mp[5]):
+            return "map08", 1490, player.y
 
         # update display
         pygame.display.flip()
