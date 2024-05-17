@@ -208,12 +208,12 @@ def map05(x_pos, y_pos, developer_mode):
 
         if player.rect.colliderect(mp[1]):
             if player.x > 776:
-                player.x -= 9
+                player.x -= 10
             return "map08", player.x, 3
 
         if player.rect.colliderect(mp[2]):
             if player.x > 536:
-                player.x -= 9
+                player.x -= 10
             return "map08", player.x, 3
 
         # update display
