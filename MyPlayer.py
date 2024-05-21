@@ -3,8 +3,8 @@ import pygame
 
 class MyPlayer:
     def __init__(self, x, y, screen, walk_up, walk_left, walk_down, walk_right, idle, player_speed, developer_mode):
-        self.max_width = None
-        self.max_height = None
+        self.max_width = 0
+        self.max_height = 0
         self.speed = player_speed
         self.screen = screen
         self.walk_up = walk_up
@@ -125,7 +125,6 @@ class MyPlayer:
     # - Iterates through each texture (up, left, down, right) to find the largest dimensions.
     # - Sets self.max_width and self.max_height accordingly.
     def check_size(self):
-
         self.max_width = 0
         self.max_height = 0
         if self.walk_up:
