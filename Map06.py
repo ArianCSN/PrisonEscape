@@ -197,6 +197,9 @@ def map06(x_pos, y_pos, developer_mode):
 
         # player collide with map changer
         # return map number and player new position on that map
+        if player.rect.colliderect(mp[0]):
+            return "map11", 3, player.y
+
         if player.rect.colliderect(mp[1]):
             return "map03", player.x, 3
 
