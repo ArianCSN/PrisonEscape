@@ -214,7 +214,7 @@ def map03(x_pos, y_pos, developer_mode):
             pass
             # return "map03", player.x, player.y
         if player.rect.colliderect(mp[2]):
-            if player.x > 1177:
+            if player.x > 1128:
                 player.x -= 21
             return "map07", player.x, 3
 
