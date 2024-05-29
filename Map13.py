@@ -179,7 +179,7 @@ def map13(x_pos, y_pos, developer_mode):
         # Options for developer mode:
         # - Show map number
         # - Show position of mouse and player on screen
-        # - Show player, bots and walls rect
+        # - Show player and walls rect
         # - If the space key is pressed, the player teleports to the mouse position
         if developer_mode:
             font = pygame.font.SysFont("", 24)

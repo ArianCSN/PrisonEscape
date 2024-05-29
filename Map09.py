@@ -198,23 +198,30 @@ def map09(x_pos, y_pos, developer_mode):
         # player collide check with walls
         player.check_collision(walls)
 
-        # options for developer mode
-        # show position of mouse on screen
-        # show player and bots rect and also hidden map changer with blue color
-        # If the space key is pressed, the player teleport to mouse position
+        # Options for developer mode:
+        # - Show map number
+        # - Show position of mouse and player on screen
+        # - Show player, map changers, walls, and triggers rect
+        # - If the space key is pressed, the player teleports to the mouse position
         if developer_mode:
             font = pygame.font.SysFont("", 24)
             x, y = pygame.mouse.get_pos()
-            coord_text = font.render(f'X: {x}, Y: {y}', True, (255, 0, 0))
-            screen.blit(coord_text, (10, 10))  # Draw the text
+            screen.blit(font.render(f"Developer Mode - Map09", True, (255, 0, 0)), (10, 5))
+            screen.blit(font.render(f'X: {x}, Y: {y}', True, (255, 0, 0)), (10, 25))
+            screen.blit(font.render(f'player x : {player.x}', True, (255, 0, 0)), (10, 45))
+            screen.blit(font.render(f'player x : {player.y}', True, (255, 0, 0)), (10, 65))
 
             if key[pygame.K_SPACE]:
                 player.x = x
                 player.y = y
 
             player.draw_rect(screen)
+
             for mp_dev in mp:
                 mp_dev.draw(screen, (0, 0, 255))
+
+            for wall in walls:
+                wall.rect_draw(screen, (0, 255, 0))
 
             for trig in triggers:
                 trig.draw(screen, (0, 0, 255))
