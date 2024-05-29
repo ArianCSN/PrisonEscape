@@ -15,3 +15,6 @@ class Wall:
                 area = pygame.Rect(i, j, min(self.texture_width, self.rect.right - i),
                                    min(self.texture_height, self.rect.bottom - j))
                 screen.blit(self.texture, area, area)
+
+    def rect_draw(self, screen, color):
+        pygame.draw.rect(screen, color, self.rect, 1)
