@@ -67,6 +67,8 @@ while True:
     if flag == "map12":
         flag, x_pos, y_pos = map12(x_pos, y_pos, developer_mode)
 
+    if flag == "map13":
+        flag, x_pos, y_pos = map13(x_pos, y_pos, developer_mode)
 
     if flag == "game_over":
         flag = game_over()
