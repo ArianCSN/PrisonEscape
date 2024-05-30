@@ -52,6 +52,9 @@ def map13(x_pos, y_pos, developer_mode):
     # - developer_mode: A flag indicating whether to enable developer-specific features
     player = MyPlayer(x_pos, y_pos, screen, walk_up, walk_left, walk_down, walk_right, idle, 5, developer_mode)
 
+    # Adjust the player's rectangle size to prevent it from getting stuck at the edges
+    player.rect = pygame.Rect(x_pos, y_pos, 20, 22)
+
     # Define the walls
     # Each wall is represented by a rectangular area with specific dimensions:
     # - (x, y): Top-left corner coordinates
