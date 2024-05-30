@@ -1,74 +1,56 @@
 from GameOver import game_over
 from Menu import main_menu
-from Map01 import map01
-from Map02 import map02
-from Map03 import map03
-from Map04 import map04
-from Map05 import map05
-from Map06 import map06
-from Map07 import map07
-from Map08 import map08
-from Map09 import map09
-from Map10 import map10
-from Map11 import map11
-from Map12 import map12
-from Map13 import map13
+import importlib
+import argparse
+
 
 # define the initial player position for map01
-x_pos = 780
-y_pos = 390
+map01_x_pos = 780
+map01_y_pos = 390
 
-# define the map number
-flag = "main_menu"
 
-# Developer Mode Flag
-# - Set to 1 to enable developer-specific features (e.g., display map positions, hit boxes).
-# - When enabled, additional information useful for debugging or development is shown .
-developer_mode = 0
+def main():
+    args = parse_args()
 
-while True:
+    level_id = "main_menu"
+    x_pos, y_pos = 0, 0
+    while True:
+        level_id, x_pos, y_pos = play_level(
+            level_id, x_pos, y_pos, args.developer_mode)
 
-    if flag == "main_menu":
-        flag, developer_mode = main_menu()
 
-    if flag == "map01":
-        flag, x_pos, y_pos = map01(x_pos, y_pos, developer_mode)
+# Parse command line arguments and return args
+def parse_args():
+    parser = argparse.ArgumentParser(description="Run the game")
+    parser.add_argument(
+        "--developer-mode",
+        action="store_true",
+        help="Enable developer mode. When enabled, "
+        "additional information useful for debugging or development is shown "
+             "(e.g., display map positions, hit boxes)",
+    )
+    args = parser.parse_args()
+    return args
 
-    if flag == "map02":
-        flag, x_pos, y_pos = map02(x_pos, y_pos, developer_mode)
 
-    if flag == "map03":
-        flag, x_pos, y_pos = map03(x_pos, y_pos, developer_mode)
+# Play the level with the given level_id and player position and return
+# the next level_id and player position
+def play_level(level_id, x_pos, y_pos, developer_mode):
+    if level_id == "main_menu":
+        level_id, _ = main_menu()
+    elif level_id == "game_over":
+        level_id = game_over()
+    else:
+        if level_id == "map01":
+            x_pos, y_pos = map01_x_pos, map01_y_pos
 
-    if flag == "map04":
-        flag, x_pos, y_pos = map04(x_pos, y_pos, developer_mode)
+        map_module = importlib.import_module(level_id.title())
+        map_function = map_module.__getattribute__(level_id)
+        level_id, x_pos, y_pos = map_function(
+            x_pos, y_pos, developer_mode)
 
-    if flag == "map05":
-        flag, x_pos, y_pos = map05(x_pos, y_pos, developer_mode)
+    return level_id, x_pos, y_pos
 
-    if flag == "map06":
-        flag, x_pos, y_pos = map06(x_pos, y_pos, developer_mode)
 
-    if flag == "map07":
-        flag, x_pos, y_pos = map07(x_pos, y_pos, developer_mode)
-
-    if flag == "map08":
-        flag, x_pos, y_pos = map08(x_pos, y_pos, developer_mode)
-
-    if flag == "map09":
-        flag, x_pos, y_pos = map09(x_pos, y_pos, developer_mode)
-
-    if flag == "map10":
-        flag, x_pos, y_pos = map10(x_pos, y_pos, developer_mode)
-
-    if flag == "map11":
-        flag, x_pos, y_pos = map11(x_pos, y_pos, developer_mode)
-
-    if flag == "map12":
-        flag, x_pos, y_pos = map12(x_pos, y_pos, developer_mode)
-
-    if flag == "map13":
-        flag, x_pos, y_pos = map13(x_pos, y_pos, developer_mode)
-
-    if flag == "game_over":
-        flag = game_over()
+if __name__ == "__main__":
+    main()
