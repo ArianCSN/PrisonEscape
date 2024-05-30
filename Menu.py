@@ -50,10 +50,6 @@ def main_menu():
         exit_text_rect = exit_text.get_rect(center=exit_button.center)
         screen.blit(exit_text, exit_text_rect)
 
-        # Draw the hidden "Developer Mode" button
-        dev_mode_button = pygame.Rect(1530, 860, 10, 10)
-        pygame.draw.rect(screen, (0, 0, 0), dev_mode_button)
-
         # Check for events
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -73,21 +69,8 @@ def main_menu():
                     pygame.mixer.music.play(-1)
 
                     # Start the game
-                    return "map01", 0
-                elif dev_mode_button.collidepoint(mouse_pos):
-                    pygame.mixer.music.stop()
-                    # Toggle developer mode
-                    sound_effect = pygame.mixer.Sound('assets/main_menu/sound/cheat.wav')
-                    sound_effect.set_volume(0.2)
-                    sound_effect.play()
-                    pygame.mixer.music.stop()
+                    return "map01", 780, 390, 0
 
-                    # load music
-                    pygame.mixer.music.load('assets/sound/music.wav')
-                    pygame.mixer.music.set_volume(0.4)
-                    pygame.mixer.music.play(-1)
-
-                    return "map01", 1
                 elif exit_button.collidepoint(mouse_pos):
                     # Exit the game
                     exit()

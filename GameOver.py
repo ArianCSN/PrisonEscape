@@ -65,10 +65,10 @@ def game_over():
                     pygame.mixer.music.play(-1)
 
                     # The try again button was clicked
-                    return "map01"  # Exit the game over screen
+                    return "map01", 780, 390  # Exit the game over screen
                 if main_menu_button.collidepoint(mouse_pos):
                     # The main menu button was clicked
-                    return "main_menu"  # Exit the game over screen
+                    return "main_menu", 780, 390  # Exit the game over screen
                 if exit_button.collidepoint(mouse_pos):
                     # The exit button was clicked
                     exit()  # Exit the game completely
