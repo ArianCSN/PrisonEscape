@@ -175,8 +175,7 @@ def map02(x_pos, y_pos, developer_mode):
         # Due to differentiation in player texture length between map02 and other maps
         # subtract from player's x position to ensure no collision with the wall occurs.
         if player.rect.colliderect(mp[0]):
-            pass
-            # return "map02", player.x, 545
+            return "map14", 750, 690
 
         if player.rect.colliderect(mp[1]):
             if player.y > 290:
