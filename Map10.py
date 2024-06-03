@@ -184,7 +184,7 @@ def map10(x_pos, y_pos, developer_mode):
             pass
 
         if player.rect.colliderect(mp[2]):
-            pass
+            return "map14", 120, 300
 
         # update display
         pygame.display.flip()
