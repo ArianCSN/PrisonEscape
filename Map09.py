@@ -209,7 +209,7 @@ def map09(x_pos, y_pos, developer_mode):
             screen.blit(font.render(f"Developer Mode - Map09", True, (255, 0, 0)), (10, 5))
             screen.blit(font.render(f'X: {x}, Y: {y}', True, (255, 0, 0)), (10, 25))
             screen.blit(font.render(f'player x : {player.x}', True, (255, 0, 0)), (10, 45))
-            screen.blit(font.render(f'player x : {player.y}', True, (255, 0, 0)), (10, 65))
+            screen.blit(font.render(f'player y : {player.y}', True, (255, 0, 0)), (10, 65))
 
             if key[pygame.K_SPACE]:
                 player.x = x
