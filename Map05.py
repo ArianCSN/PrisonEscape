@@ -224,6 +224,21 @@ def map05(x_pos, y_pos, developer_mode):
                 player.x -= 10
             return "map08", player.x, 3
 
+        if player.rect.colliderect(mp[3]):
+            if player.y > 600:
+                player.y -= 12
+            return "map17", 1494, player.y
+
+        if player.rect.colliderect(mp[4]):
+            if player.y > 405:
+                player.y -= 12
+            return "map17", 1494, player.y
+
+        if player.rect.colliderect(mp[5]):
+            if player.y > 210:
+                player.y -= 12
+            return "map17", 1494, player.y
+
         # update display
         pygame.display.flip()
 
