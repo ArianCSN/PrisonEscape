@@ -1,9 +1,9 @@
 import pygame
 from Ground import Ground
 from MyPlayer import MyPlayer
-from Bot import Bot
 from Wall import Wall
 from InvisibleWall import InvisibleWall
+import random
 
 
 def map13(x_pos, y_pos, developer_mode):
@@ -206,6 +206,9 @@ def map13(x_pos, y_pos, developer_mode):
 
         # player collide with map changer
         # return map number and player new position on that map
+        if player.rect.colliderect(mp[0]):
+            return "map17", random.randint(630, 742), 703
+
         if player.rect.colliderect(mp[1]):
             return "map08", 3, 90
 
