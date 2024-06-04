@@ -174,7 +174,7 @@ def map04(x_pos, y_pos, developer_mode):
             return "map07", 3, player.y
 
         if player.rect.colliderect(mp[2]):
-            pass
+            return "map16", player.x, 3
 
         if player.rect.colliderect(mp[3]):
             return "map08", 1490, player.y
