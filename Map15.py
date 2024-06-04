@@ -68,9 +68,9 @@ def map15(x_pos, y_pos, developer_mode):
     # - (x, y): Top-left corner coordinates
     # - Width and height of the trigger area
     # - InvisibleWall objects handle map transitions
-    mp = [InvisibleWall(300, 60, 30, 30), InvisibleWall(1380, 120, 30, 30),
-          InvisibleWall(1380, 600, 30, 30), InvisibleWall(720, 660, 30, 30),
-          InvisibleWall(120, 600, 30, 30)]
+    mp = [InvisibleWall(300, 60, 30, 30), InvisibleWall(723, 119, 30, 1),
+          InvisibleWall(1380, 120, 30, 30), InvisibleWall(1380, 600, 30, 30),
+           InvisibleWall(720, 660, 30, 30), InvisibleWall(120, 600, 30, 30)]
 
     # main loop
     running = True
@@ -98,8 +98,8 @@ def map15(x_pos, y_pos, developer_mode):
         for wall in walls:
             wall.draw(screen)
 
-        for mp_dev in mp:
-            mp_dev.draw(screen, (0, 0, 255))
+        for mps in mp:
+            mps.draw(screen, (0, 0, 255))
 
         # Options for developer mode:
         # - Show map number
@@ -129,9 +129,12 @@ def map15(x_pos, y_pos, developer_mode):
         # player collide with map changer
         # return map number and player new position on that map
         if player.rect.colliderect(mp[0]):
-            return "map11", random.randint(990, 1105), 830
+            return "map11", random.randint(240, 385), 830
 
-        if player.rect.colliderect(mp[4]):
+        if player.rect.colliderect(mp[1]):
+            return "map11", random.randint(992, 1107), 830
+
+        if player.rect.colliderect(mp[5]):
             return "map03", 1508, random.randint(454, 564)
 
         # update display
