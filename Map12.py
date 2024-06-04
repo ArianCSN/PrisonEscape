@@ -171,9 +171,19 @@ def map12(x_pos, y_pos, developer_mode):
         # Due to differentiation in player texture length between map12 and other maps
         # subtract from player's x position to ensure no collision with the wall occurs.
         if player.rect.colliderect(mp[0]):
-            if player.x > 847 :
+            if player.x > 847:
                 player.x -= 22
             return "map07", player.x, 830
+
+        if player.rect.colliderect(mp[4]):
+            if player.y > 660:
+                player.y -= 1
+            return "map16", 1513, player.y
+
+        if player.rect.colliderect(mp[5]):
+            if player.y > 300:
+                player.y -= 1
+            return "map16", 1513, player.y
 
         # update display
         pygame.display.flip()
