@@ -198,13 +198,13 @@ def map08(x_pos, y_pos, developer_mode):
             return "map04", 3, player.y
 
         if player.rect.colliderect(mp[5]):
-            pass
+            return "map20", player.x, 3
 
         if player.rect.colliderect(mp[6]):
-            pass
+            return "map20", player.x, 3
 
         if player.rect.colliderect(mp[7]):
-            pass
+            return "map20", player.x, 3
 
         if player.rect.colliderect(mp[8]):
             return "map13", 1440, 720
