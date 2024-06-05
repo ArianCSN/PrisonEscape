@@ -47,13 +47,13 @@ def map07(x_pos, y_pos, developer_mode):
 
     bot_left = [pygame.image.load('assets/map07/bot/L1.png'), pygame.image.load('assets/map07/bot/L2.png'),
                 pygame.image.load('assets/map07/bot/L3.png'), pygame.image.load('assets/map07/bot/L4.png'),
-                pygame.image.load('assets/map07/bot/L5.png'),pygame.image.load('assets/map07/bot/L6.png')]
+                pygame.image.load('assets/map07/bot/L5.png'), pygame.image.load('assets/map07/bot/L6.png')]
 
     bot_down = None
 
     bot_right = [pygame.image.load('assets/map07/bot/R1.png'), pygame.image.load('assets/map07/bot/R2.png'),
                  pygame.image.load('assets/map07/bot/R3.png'), pygame.image.load('assets/map07/bot/R4.png'),
-                 pygame.image.load('assets/map07/bot/R5.png'),pygame.image.load('assets/map07/bot/R6.png')]
+                 pygame.image.load('assets/map07/bot/R5.png'), pygame.image.load('assets/map07/bot/R6.png')]
 
     # define the ground
     ground = Ground(screen_width, screen_height, ground_texture)
