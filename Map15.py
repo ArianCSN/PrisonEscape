@@ -134,6 +134,9 @@ def map15(x_pos, y_pos, developer_mode):
         if player.rect.colliderect(mp[1]):
             return "map11", random.randint(992, 1107), 830
 
+        if player.rect.colliderect(mp[4]):
+            return "map19", random.randint(630, 710), 3
+
         if player.rect.colliderect(mp[5]):
             return "map03", 1508, random.randint(454, 564)
 
