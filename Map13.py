@@ -215,6 +215,9 @@ def map13(x_pos, y_pos, developer_mode):
         if player.rect.colliderect(mp[2]):
             return "map08", 3, 660
 
+        if player.rect.colliderect(mp[3]):
+            return "map24", random.randint(694, 784), 3
+
         # update display
         pygame.display.flip()
 
