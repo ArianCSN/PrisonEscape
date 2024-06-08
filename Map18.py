@@ -177,7 +177,7 @@ def map18(x_pos, y_pos, developer_mode):
             pass
 
         if player.rect.colliderect(mp[1]):
-            pass
+            return "map22", 3, player.y
 
         if player.rect.colliderect(mp[2]):
             # Play teleportation sound effect
