@@ -1,3 +1,5 @@
+import random
+
 import pygame
 from Ground import Ground
 from MyPlayer import MyPlayer
@@ -56,9 +58,9 @@ def map09(x_pos, y_pos, developer_mode):
     # - (x, y): Top-left corner coordinates
     # - Width and height of the wall
     # - Texture (wall_texture) used for rendering
-    walls = [Wall(0, 0, 1535, 60, wall_texture), Wall(0, 60, 120, 180, wall_texture),
+    walls = [Wall(0, 0, 1535, 60, wall_texture), Wall(0, 60, 120, 210, wall_texture),
              Wall(60, 240, 60, 30, wall_texture), Wall(60, 300, 30, 30, wall_texture),
-             Wall(0, 330, 90, 450, wall_texture), Wall(120, 60, 60, 690, wall_texture),
+             Wall(0, 300, 90, 480, wall_texture), Wall(120, 60, 60, 690, wall_texture),
              Wall(210, 90, 60, 690, wall_texture), Wall(300, 60, 60, 690, wall_texture),
              Wall(390, 90, 60, 690, wall_texture), Wall(480, 60, 60, 690, wall_texture),
              Wall(570, 90, 60, 690, wall_texture), Wall(660, 60, 60, 690, wall_texture),
@@ -66,8 +68,8 @@ def map09(x_pos, y_pos, developer_mode):
              Wall(930, 90, 60, 690, wall_texture), Wall(1020, 60, 60, 690, wall_texture),
              Wall(1110, 90, 60, 690, wall_texture), Wall(1200, 60, 60, 690, wall_texture),
              Wall(1290, 90, 60, 690, wall_texture), Wall(1380, 60, 60, 690, wall_texture),
-             Wall(1440, 60, 95, 360, wall_texture), Wall(1440, 420, 60, 30, wall_texture),
-             Wall(1470, 480, 30, 30, wall_texture), Wall(1470, 510, 65, 270, wall_texture),
+             Wall(1440, 60, 95, 390, wall_texture), Wall(1440, 420, 60, 30, wall_texture),
+             Wall(1470, 480, 30, 30, wall_texture), Wall(1470, 480, 65, 300, wall_texture),
              Wall(0, 780, 1535, 83, wall_texture)]
 
     # Hidden walls that change maps
@@ -232,15 +234,11 @@ def map09(x_pos, y_pos, developer_mode):
 
         # player collide with map changer
         # return map number and player new position on that map
-        # Due to differentiation in player texture length between map09 and other maps
-        # subtract from player's x position to ensure no collision with the wall occurs.
         if player.rect.colliderect(mp[0]):
-            if player.y > 485:
-                player.y -= 7
-            return "map02", 3, player.y
+            return "map02", 3, random.randint(421, 481)
 
         if player.rect.colliderect(mp[1]):
-            pass
+            return "map21", 1507, 277
 
         # update display
         pygame.display.flip()
