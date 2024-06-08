@@ -86,7 +86,7 @@ def map20(x_pos, y_pos, developer_mode):
     # - (x, y): Top-left corner coordinates
     # - Width and height of the wall
     # - Texture (wall_texture) used for rendering
-    walls = [Wall(0, 0, 450, 360, wall_texture), Wall(0, 480, 450, 384, wall_texture),
+    walls = [Wall(0, 0, 450, 330, wall_texture), Wall(0, 480, 450, 384, wall_texture),
              Wall(570, 0, 120, 864, wall_texture), Wall(810, 0, 120, 480, wall_texture),
              Wall(810, 480, 726, 120, wall_texture), Wall(690, 720, 864, 144, wall_texture),
              Wall(1050, 0, 120, 480, wall_texture), Wall(1170, 0, 364, 240, wall_texture),
@@ -101,7 +101,7 @@ def map20(x_pos, y_pos, developer_mode):
           InvisibleWall(930, 0, 120, 2), InvisibleWall(1534, 240, 2, 120),
           InvisibleWall(1534, 600, 2, 120), InvisibleWall(1170, 480, 120, 2),
           InvisibleWall(930, 480, 120, 2), InvisibleWall(450, 862, 120, 2),
-          InvisibleWall(0, 360, 2, 120)]
+          InvisibleWall(0, 330, 2, 150)]
 
     # main loop
     running = True
@@ -197,6 +197,9 @@ def map20(x_pos, y_pos, developer_mode):
 
         if player.rect.colliderect(mp[4]):
             return "map16", 3, player.y
+
+        if player.rect.colliderect(mp[8]):
+            return "map24", 1509, player.y
 
         # update display
         pygame.display.flip()
