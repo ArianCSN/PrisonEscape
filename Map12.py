@@ -175,6 +175,16 @@ def map12(x_pos, y_pos, developer_mode):
                 player.x -= 22
             return "map07", player.x, 830
 
+        if player.rect.colliderect(mp[1]):
+            if player.y > 300:
+                player.y -= 9
+            return "map23", 3, player.y
+
+        if player.rect.colliderect(mp[2]):
+            if player.y > 660:
+                player.y -= 9
+            return "map23", 3, player.y
+
         if player.rect.colliderect(mp[4]):
             if player.y > 660:
                 player.y -= 1
