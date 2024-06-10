@@ -142,7 +142,6 @@ def map22(x_pos, y_pos, developer_mode):
 
             return "map24", 601, player.y
 
-        # Second teleportation
         if player.rect.colliderect(tps[1]):
 
             # Play teleportation sound effect
@@ -151,6 +150,24 @@ def map22(x_pos, y_pos, developer_mode):
             sound_effect.play()
 
             return "map24", 877, player.y
+
+        if player.rect.colliderect(tps[2]):
+
+            # Play teleportation sound effect
+            sound_effect = pygame.mixer.Sound('assets/map22/sound/teleport.wav')
+            sound_effect.set_volume(0.2)
+            sound_effect.play()
+
+            return "map23", player.x, 55
+
+        if player.rect.colliderect(tps[3]):
+
+            # Play teleportation sound effect
+            sound_effect = pygame.mixer.Sound('assets/map22/sound/teleport.wav')
+            sound_effect.set_volume(0.2)
+            sound_effect.play()
+
+            return "map23", player.x-30, 151
 
         # Draw the bots
         for bot in bots:
