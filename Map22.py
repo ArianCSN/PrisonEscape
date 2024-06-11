@@ -79,7 +79,7 @@ def map22(x_pos, y_pos, developer_mode):
     # - developer_mode: A flag indicating whether to enable developer-specific features
     bots = [Bot(300, 390, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 2, developer_mode),
             Bot(720, 660, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 2, developer_mode),
-            Bot(1380, 390, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 2, developer_mode)]
+            Bot(1372, 619, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 2, developer_mode)]
 
     # Define the walls
     # Each wall is represented by a rectangular area with specific dimensions:
@@ -99,7 +99,8 @@ def map22(x_pos, y_pos, developer_mode):
     # - Width and height of the trigger area
     # - InvisibleWall objects handle map transitions
     mp = [InvisibleWall(1320, 0, 120, 2), InvisibleWall(1534, 300, 2, 210),
-          InvisibleWall(990, 862, 150, 2), InvisibleWall(0, 300, 2, 210)]
+          InvisibleWall(990, 862, 150, 2), InvisibleWall(0, 300, 2, 210),
+          InvisibleWall(1318, 330, 2, 150)]
 
     # Teleports that teleports you
     # These rects act as triggers to teleport from one point to another :
@@ -172,6 +173,21 @@ def map22(x_pos, y_pos, developer_mode):
             sound_effect.play()
 
             return "map23", player.x-30, 151
+
+        if player.rect.colliderect(mp[4]):
+
+            # Play teleportation sound effect
+            sound_effect = pygame.mixer.Sound('assets/map22/sound/teleport.wav')
+            sound_effect.set_volume(0.2)
+            sound_effect.play()
+
+            if player.y < 330:
+                player.y = 330
+
+            if player.y > 440:
+                player.y = 445
+
+            return "map05", 1256, player.y
 
         # Draw the bots
         for bot in bots:
