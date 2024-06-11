@@ -1,4 +1,5 @@
 import pygame
+import time
 from Ground import Ground
 from MyPlayer import MyPlayer
 from Bot import Bot
@@ -20,6 +21,9 @@ def map25(x_pos, y_pos, developer_mode):
     # Hide the mouse cursor
     if not developer_mode:
         pygame.mouse.set_visible(False)
+
+    # flag for toggle between player view and developer view
+    view_toggle = True
 
     # load texture
     ground_texture = pygame.image.load('assets/map25/ground/ground.jpg')
@@ -120,7 +124,7 @@ def map25(x_pos, y_pos, developer_mode):
            InvisibleWall(930, 90, 120, 30), InvisibleWall(930, 480, 120, 30),
            InvisibleWall(930, 720, 120, 30), InvisibleWall(720, 270, 60, 60)]
 
-    borders = [InvisibleWall(690, 240, 120, 120)]
+    border = [InvisibleWall(690, 240, 120, 120)]
 
     # main loop
     running = True
@@ -214,12 +218,11 @@ def map25(x_pos, y_pos, developer_mode):
 
             return "map24", player.x + 390, 751
 
-
         # Draw the bots
         for bot in bots:
             bot.move()
             bot.check_collision(walls)
-            bot.check_collision(borders)
+            bot.check_collision(border)
             bot.check_collision(tps)
             bot.check_collision(mp)
             # if player collide bots it goes to game over screen and pass player position of map01 for new start
@@ -233,11 +236,13 @@ def map25(x_pos, y_pos, developer_mode):
         # player collide check with walls
         player.check_collision(walls)
 
-        # Options for developer mode:
-        # - Show map number
-        # - Show position of mouse and player on screen
-        # - Show player, map changers, walls and bots rect
-        # - If the space key is pressed, the player teleports to the mouse position
+        # Developer Mode Options:
+        # - Display map number
+        # - Show mouse position on screen
+        # - Show player X and Y coordinates
+        # - Show bounding rectangles of all objects when developer view is enabled
+        # - Teleport player to mouse position when the space key is pressed
+        # - Toggle between player view and developer view using the left-alt key
         if developer_mode:
             font = pygame.font.SysFont("", 24)
             x, y = pygame.mouse.get_pos()
@@ -250,19 +255,31 @@ def map25(x_pos, y_pos, developer_mode):
                 player.x = x
                 player.y = y
 
-            player.draw_rect(screen)
+            if key[pygame.K_LALT]:
+                time.sleep(0.2)
+                if not view_toggle:
+                    view_toggle = True
+                else:
+                    view_toggle = False
 
-            for bot in bots:
-                bot.draw_rect(screen)
+            if view_toggle:
+                screen.blit(font.render('Developer View', True, (255, 0, 0)), (10, 85))
+                player.draw_rect(screen)
 
-            for mp_dev in mp:
-                mp_dev.draw(screen, (0, 0, 255))
+                for bot in bots:
+                    bot.draw_rect(screen)
 
-            for wall in walls:
-                wall.rect_draw(screen, (0, 255, 0))
+                for mp_dev in mp:
+                    mp_dev.draw(screen, (0, 0, 255))
 
-            for border in borders:
-                border.draw(screen, (255, 0, 0))
+                for wall in walls:
+                    wall.rect_draw(screen, (0, 255, 0))
+
+                for br in border:
+                    br.draw(screen, (178, 34, 34))
+
+            if not view_toggle:
+                screen.blit(font.render('Player View', True, (255, 0, 0)), (10, 85))
 
         # Frame rate
         pygame.time.Clock().tick(30)
@@ -286,10 +303,6 @@ def map25(x_pos, y_pos, developer_mode):
             pass
 
         if player.rect.colliderect(tps[7]):
-            sound_effect = pygame.mixer.Sound('assets/map25/sound/win.mp3')
-            sound_effect.set_volume(0.2)
-            sound_effect.play()
-            pygame.mixer.music.stop()
             return "win", 780, 390
 
         # update display

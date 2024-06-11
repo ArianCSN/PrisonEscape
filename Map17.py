@@ -1,4 +1,5 @@
 import pygame
+import time
 from Ground import Ground
 from MyPlayer import MyPlayer
 from Bot import Bot
@@ -20,6 +21,9 @@ def map17(x_pos, y_pos, developer_mode):
     # Hide the mouse cursor
     if not developer_mode:
         pygame.mouse.set_visible(False)
+
+    # flag for toggle between player view and developer view
+    view_toggle = True
 
     # load texture
     ground_texture = pygame.image.load('assets/map17/ground/ground.jpg')
@@ -170,11 +174,13 @@ def map17(x_pos, y_pos, developer_mode):
         # player collide check with walls
         player.check_collision(walls)
 
-        # Options for developer mode:
-        # - Show map number
-        # - Show position of mouse and player on screen
-        # - Show player, map changers, bots, walls and Teleports rect
-        # - If the space key is pressed, the player teleports to the mouse position
+        # Developer Mode Options:
+        # - Display map number
+        # - Show mouse position on screen
+        # - Show player X and Y coordinates
+        # - Show bounding rectangles of all objects when developer view is enabled
+        # - Teleport player to mouse position when the space key is pressed
+        # - Toggle between player view and developer view using the left-alt key
         if developer_mode:
             font = pygame.font.SysFont("", 24)
             x, y = pygame.mouse.get_pos()
@@ -187,19 +193,31 @@ def map17(x_pos, y_pos, developer_mode):
                 player.x = x
                 player.y = y
 
-            player.draw_rect(screen)
-            
-            for bot in bots:
-                bot.draw_rect(screen)
+            if key[pygame.K_LALT]:
+                time.sleep(0.2)
+                if not view_toggle:
+                    view_toggle = True
+                else:
+                    view_toggle = False
 
-            for tp in tps:
-                tp.draw(screen, (111, 49, 152))
+            if view_toggle:
+                screen.blit(font.render('Developer View', True, (255, 0, 0)), (10, 85))
+                player.draw_rect(screen)
 
-            for mp_dev in mp:
-                mp_dev.draw(screen, (0, 0, 255))
+                for bot in bots:
+                    bot.draw_rect(screen)
 
-            for wall in walls:
-                wall.rect_draw(screen, (0, 255, 0))
+                for mp_dev in mp:
+                    mp_dev.draw(screen, (0, 0, 255))
+
+                for wall in walls:
+                    wall.rect_draw(screen, (0, 255, 0))
+
+                for tp in tps:
+                    tp.draw(screen, (111, 49, 152))
+
+            if not view_toggle:
+                screen.blit(font.render('Player View', True, (255, 0, 0)), (10, 85))
 
         # Frame rate
         pygame.time.Clock().tick(30)

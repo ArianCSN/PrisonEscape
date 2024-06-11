@@ -1,5 +1,5 @@
 import random
-
+import time
 import pygame
 from Ground import Ground
 from MyPlayer import MyPlayer
@@ -22,6 +22,9 @@ def map09(x_pos, y_pos, developer_mode):
     if not developer_mode:
         pygame.mouse.set_visible(False)
 
+    # flag for toggle between player view and developer view
+    view_toggle = True
+
     # load texture
     ground_texture = pygame.image.load('assets/map09/ground/ground.jpg')
 
@@ -40,7 +43,7 @@ def map09(x_pos, y_pos, developer_mode):
     walk_right = [pygame.image.load('assets/map09/player/R1.png'), pygame.image.load('assets/map09/player/R2.png'),
                   pygame.image.load('assets/map09/player/R3.png'), pygame.image.load('assets/map09/player/R4.png'),
                   pygame.image.load('assets/map09/player/R5.png'), pygame.image.load('assets/map09/player/R6.png')]
-    
+
     # define the ground
     ground = Ground(screen_width, screen_height, ground_texture)
 
@@ -86,7 +89,7 @@ def map09(x_pos, y_pos, developer_mode):
 
     # Walls defined before appending them to the killer wall list
     walls_append = [Wall(0, 0, 30, 864, wall_texture), Wall(30, 0, 30, 864, wall_texture),
-                    Wall(60, 0, 30, 864, wall_texture ), Wall(90, 0, 30, 864, wall_texture),
+                    Wall(60, 0, 30, 864, wall_texture), Wall(90, 0, 30, 864, wall_texture),
                     Wall(120, 0, 30, 864, wall_texture), Wall(150, 0, 30, 864, wall_texture),
                     Wall(180, 0, 30, 864, wall_texture), Wall(210, 0, 30, 864, wall_texture),
                     Wall(240, 0, 30, 864, wall_texture), Wall(270, 0, 30, 864, wall_texture),
@@ -200,11 +203,13 @@ def map09(x_pos, y_pos, developer_mode):
         # player collide check with walls
         player.check_collision(walls)
 
-        # Options for developer mode:
-        # - Show map number
-        # - Show position of mouse and player on screen
-        # - Show player, map changers, walls, and triggers rect
-        # - If the space key is pressed, the player teleports to the mouse position
+        # Developer Mode Options:
+        # - Display map number
+        # - Show mouse position on screen
+        # - Show player X and Y coordinates
+        # - Show bounding rectangles of all objects when developer view is enabled
+        # - Teleport player to mouse position when the space key is pressed
+        # - Toggle between player view and developer view using the left-alt key
         if developer_mode:
             font = pygame.font.SysFont("", 24)
             x, y = pygame.mouse.get_pos()
@@ -217,17 +222,28 @@ def map09(x_pos, y_pos, developer_mode):
                 player.x = x
                 player.y = y
 
-            player.draw_rect(screen)
+            if key[pygame.K_LALT]:
+                time.sleep(0.2)
+                if not view_toggle:
+                    view_toggle = True
+                else:
+                    view_toggle = False
 
-            for mp_dev in mp:
-                mp_dev.draw(screen, (0, 0, 255))
+            if view_toggle:
+                screen.blit(font.render('Developer View', True, (255, 0, 0)), (10, 85))
+                player.draw_rect(screen)
 
-            for wall in walls:
-                wall.rect_draw(screen, (0, 255, 0))
+                for mp_dev in mp:
+                    mp_dev.draw(screen, (0, 0, 255))
 
-            for trig in triggers:
-                trig.draw(screen, (0, 0, 255))
+                for wall in walls:
+                    wall.rect_draw(screen, (0, 255, 0))
 
+                for trig in triggers:
+                    trig.draw(screen, (0, 0, 255))
+
+            if not view_toggle:
+                screen.blit(font.render('Player View', True, (255, 0, 0)), (10, 85))
 
         # Frame rate
         pygame.time.Clock().tick(240)

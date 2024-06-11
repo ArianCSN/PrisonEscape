@@ -1,7 +1,8 @@
 import pygame
+import time
+import random
 from Ground import Ground
 from MyPlayer import MyPlayer
-import random
 from Wall import Wall
 from InvisibleWall import InvisibleWall
 
@@ -20,6 +21,9 @@ def map14(x_pos, y_pos, developer_mode):
     # Hide the mouse cursor
     if not developer_mode:
         pygame.mouse.set_visible(False)
+
+    # flag for toggle between player view and developer view
+    view_toggle = True
 
     # load texture
     ground_texture = pygame.image.load('assets/map14/ground/ground.jpg')
@@ -102,11 +106,13 @@ def map14(x_pos, y_pos, developer_mode):
         for mp_dev in mp:
             mp_dev.draw(screen, (0, 0, 255))
 
-        # Options for developer mode:
-        # - Show map number
-        # - Show position of mouse and player on screen
-        # - Show player and walls rect
-        # - If the space key is pressed, the player teleports to the mouse position
+        # Developer Mode Options:
+        # - Display map number
+        # - Show mouse position on screen
+        # - Show player X and Y coordinates
+        # - Show bounding rectangles of all objects when developer view is enabled
+        # - Teleport player to mouse position when the space key is pressed
+        # - Toggle between player view and developer view using the left-alt key
         if developer_mode:
             font = pygame.font.SysFont("", 24)
             x, y = pygame.mouse.get_pos()
@@ -119,10 +125,22 @@ def map14(x_pos, y_pos, developer_mode):
                 player.x = x
                 player.y = y
 
-            player.draw_rect(screen)
+            if key[pygame.K_LALT]:
+                time.sleep(0.2)
+                if not view_toggle:
+                    view_toggle = True
+                else:
+                    view_toggle = False
 
-            for wall in walls:
-                wall.rect_draw(screen, (0, 255, 0))
+            if view_toggle:
+                screen.blit(font.render('Developer View', True, (255, 0, 0)), (10, 85))
+                player.draw_rect(screen)
+
+                for wall in walls:
+                    wall.rect_draw(screen, (0, 255, 0))
+
+            if not view_toggle:
+                screen.blit(font.render('Player View', True, (255, 0, 0)), (10, 85))
 
         # Frame rate
         pygame.time.Clock().tick(60)
