@@ -140,6 +140,24 @@ def map23(x_pos, y_pos, developer_mode):
             tp.draw(screen, (111, 49, 152))
 
         # Teleportation Logic
+        if player.rect.colliderect(tps[0]):
+
+            # Play teleportation sound effect
+            sound_effect = pygame.mixer.Sound('assets/map23/sound/teleport.wav')
+            sound_effect.set_volume(0.2)
+            sound_effect.play()
+
+            return "map25", 241, player.y
+
+        if player.rect.colliderect(tps[1]):
+
+            # Play teleportation sound effect
+            sound_effect = pygame.mixer.Sound('assets/map23/sound/teleport.wav')
+            sound_effect.set_volume(0.2)
+            sound_effect.play()
+
+            return "map25", 1177, player.y
+
         if player.rect.colliderect(tps[2]):
 
             # Play teleportation sound effect
