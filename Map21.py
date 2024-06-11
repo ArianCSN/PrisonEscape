@@ -176,13 +176,13 @@ def map21(x_pos, y_pos, developer_mode):
         # Due to differentiation in player texture length between map21 and other maps
         # subtract from player's x position to ensure no collision with the wall occurs.
         if player.rect.colliderect(mp[0]):
-            pass
+            return "map25", player.x, 827
 
         if player.rect.colliderect(mp[1]):
             return "map09", 3, 273
 
         if player.rect.colliderect(mp[2]):
-            if player.x > 474 :
+            if player.x > 474:
                 player.x -= 14
             return "map17", player.x, 3
 
