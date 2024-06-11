@@ -6,7 +6,7 @@ def game_over():
     # set up screen
     screen_width = 1536
     screen_height = 864
-    pygame.display.set_caption('Main menu')
+    pygame.display.set_caption('Game Over')
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 
     # Makes the mouse cursor visible
