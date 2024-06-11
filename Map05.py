@@ -147,21 +147,17 @@ def map05(x_pos, y_pos, developer_mode):
             tp.draw(screen, (111, 49, 152))
 
         # Teleportation Logic
-        # if player.rect.colliderect(tps[0]):
-        #     # Check player's x-coordinate
-        #     if player.x < 695:
-        #         TheX = player.x - 515
-        #     else:
-        #         TheX = player.x - 522
-        #
-        #     # Calculate new y-coordinate after teleportation
-        #     player.y = 65 + TheX
-        #     player.x = 1386
-        #
-        #     # Play teleportation sound effect
-        #     sound_effect = pygame.mixer.Sound('assets/map05/sound/teleport.wav')
-        #     sound_effect.set_volume(0.2)
-        #     sound_effect.play()
+        if player.rect.colliderect(tps[0]):
+
+            # Calculate new y-coordinate after teleportation
+            player.x = 1321
+
+            # Play teleportation sound effect
+            sound_effect = pygame.mixer.Sound('assets/map05/sound/teleport.wav')
+            sound_effect.set_volume(0.2)
+            sound_effect.play()
+
+            return "map22", 1321, player.y
 
         # Draw the bots
         for bot in bots:
