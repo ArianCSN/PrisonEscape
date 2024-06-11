@@ -79,10 +79,7 @@ def map02(x_pos, y_pos, developer_mode):
     # - developer_mode: A flag indicating whether to enable developer-specific features
     bots = [Bot(600, 300, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
             Bot(1080, 450, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 1, developer_mode),
-            Bot(810, 340, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 3, developer_mode),
-            Bot(810, 450, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 3, developer_mode),
-            Bot(870, 360, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 3, developer_mode),
-            Bot(870, 420, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 3, developer_mode)]
+            Bot(810, 340, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 3, developer_mode)]
 
     # Define the walls
     # Each wall is represented by a rectangular area with specific dimensions:
