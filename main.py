@@ -1,5 +1,6 @@
 from GameOver import game_over
 from Menu import main_menu
+from Win import win
 import importlib
 import argparse
 
@@ -35,6 +36,8 @@ def play_level(level_id, x_pos, y_pos, developer_mode):
         level_id, x_pos, y_pos, _ = main_menu()
     elif level_id == "game_over":
         level_id, x_pos, y_pos = game_over()
+    elif level_id == "win":
+        level_id, x_pos, y_pos = win()
     else:
         map_module = importlib.import_module(level_id.title())
         map_function = map_module.__getattribute__(level_id)
