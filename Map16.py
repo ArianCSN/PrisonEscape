@@ -118,7 +118,7 @@ def map16(x_pos, y_pos, developer_mode):
         teleport_lines = [
             "Teleportation Room",
             "You can use the teleporter in this room to randomly teleport.",
-            "There's a 4% chance of instant death upon teleportation.",
+            "There's a 4% chance of getting trapped upon teleportation.",
             "Additionally, there's a 4% chance of teleporting to an exit room."
         ]
 
@@ -128,17 +128,6 @@ def map16(x_pos, y_pos, developer_mode):
 
         # Teleportation Logic
         if player.rect.colliderect(tps[0]):
-            # Play teleportation sound effect
-            sound_effect = pygame.mixer.Sound('assets/map16/sound/teleport.wav')
-            sound_effect.set_volume(1)
-            sound_effect.play()
-
-            # Create a white flash effect (you can adjust the duration and intensity)
-            flash_surface = pygame.Surface(screen.get_size())
-            flash_surface.fill((255, 255, 255))  # White color
-            flash_surface.set_alpha(100)  # Adjust transparency (0 to 255)
-            screen.blit(flash_surface, (0, 0))
-            pygame.display.flip()
 
             random_tp = [
                 ["map01", 66, 390],
@@ -155,9 +144,48 @@ def map16(x_pos, y_pos, developer_mode):
                 ["map12", 1322, 641],
                 ["map13", 813, 575],
                 ["map14", 755, 305],
-                ["map15", 721, 124]
+                ["map15", 721, 124],
+                ["map16", 1253, 650],
+                ["map17", 681, 576],
+                ["map18", 1481, 398],
+                ["map19", 768, 384],
+                ["map20", 723, 651],
+                ["map21", 603, 287],
+                ["map22", 1038, 385],
+                ["map23", 106, 286],
+                ["map24", 1368, 787],
+                ["map25", 977, 597],
+                # trapped
+                ["map02", 921, 484],
+                # exit room
+                ["map25", 786, 243]
             ]
-            return random.choice(random_tp)
+
+            # randomly picked one of the maps
+            randomize = random.choice(random_tp)
+
+            # Play teleportation sound effect
+            if randomize == ["map02", 921, 484]:
+                sound_effect = pygame.mixer.Sound('assets/map16/sound/trapped.wav')
+                sound_effect.set_volume(1)
+                sound_effect.play()
+            elif randomize == ["map25", 786, 243]:
+                sound_effect = pygame.mixer.Sound('assets/map16/sound/lucky.mp3')
+                sound_effect.set_volume(1)
+                sound_effect.play()
+            else:
+                sound_effect = pygame.mixer.Sound('assets/map16/sound/teleport.wav')
+                sound_effect.set_volume(1)
+                sound_effect.play()
+
+            # Create a white flash effect (you can adjust the duration and intensity)
+            flash_surface = pygame.Surface(screen.get_size())
+            flash_surface.fill((255, 255, 255))  # White color
+            flash_surface.set_alpha(100)  # Adjust transparency (0 to 255)
+            screen.blit(flash_surface, (0, 0))
+            pygame.display.flip()
+
+            return randomize
 
         # player collide check with walls
         player.check_collision(walls)
