@@ -12,9 +12,34 @@ def map19(x_pos, y_pos, developer_mode):
     pygame.init()
     pygame.mixer.init()
 
-    # set up screen
-    screen_width = 1536
-    screen_height = 864
+    # Native resolution of the map
+    map_width = 1536
+    map_height = 864
+    map_aspect_ratio = map_width / map_height
+
+    # Get screen resolution
+    screen_info = pygame.display.Info()
+    screen_width = screen_info.current_w
+    screen_height = screen_info.current_h
+    screen_aspect_ratio = screen_width / screen_height
+
+    if screen_aspect_ratio >= map_aspect_ratio:
+        scale_factor = screen_height / map_height
+        scaled_width = int(map_width * scale_factor)
+        scaled_height = screen_height
+        offset_x = (screen_width - scaled_width) // 2
+        offset_y = 0
+    else:
+        scale_factor = screen_width / map_width
+        scaled_width = screen_width
+        scaled_height = int(map_height * scale_factor)
+        offset_x = 0
+        offset_y = (screen_height - scaled_height) // 2
+
+    # Create a scaled surface
+    scaled_surface = pygame.Surface((map_width, map_height))
+
+    # Set up the screen to full resolution
     pygame.display.set_caption('Prison Escape')
     screen = pygame.display.set_mode((screen_width, screen_height), pygame.FULLSCREEN)
 
@@ -59,7 +84,7 @@ def map19(x_pos, y_pos, developer_mode):
                  pygame.image.load('assets/map19/bot/R5.png'), pygame.image.load('assets/map19/bot/R6.png')]
 
     # define the ground
-    ground = Ground(screen_width, screen_height, ground_texture)
+    ground = Ground(map_width, map_height, ground_texture)
 
     # Create the player character
     # The player is represented by an instance of the MyPlayer class:
@@ -68,7 +93,7 @@ def map19(x_pos, y_pos, developer_mode):
     # - Textures for different directions (walk_up, walk_left, walk_down, walk_right, idle)
     # - Speed (5th input): Controls how fast the player moves (higher values mean faster movement)
     # - developer_mode: A flag indicating whether to enable developer-specific features
-    player = MyPlayer(x_pos, y_pos, screen, walk_up, walk_left, walk_down, walk_right, idle, 5, developer_mode)
+    player = MyPlayer(x_pos, y_pos, scaled_surface, walk_up, walk_left, walk_down, walk_right, idle, 5, developer_mode)
 
     # Define the bots
     # Each bot is initialized with specific parameters:
@@ -77,8 +102,8 @@ def map19(x_pos, y_pos, developer_mode):
     # - Textures for different directions (up, left, down, right, idle)
     # - Speed (9th input): Controls how fast the bot moves (higher values mean faster movement)
     # - developer_mode: A flag indicating whether to enable developer-specific features
-    bots = [Bot(660, 600, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 2, developer_mode),
-            Bot(1140, 360, screen, bot_up, bot_left, bot_down, bot_right, bot_idle, 2, developer_mode)]
+    bots = [Bot(660, 600, scaled_surface, bot_up, bot_left, bot_down, bot_right, bot_idle, 2, developer_mode),
+            Bot(1140, 360, scaled_surface, bot_up, bot_left, bot_down, bot_right, bot_idle, 2, developer_mode)]
 
     # Define the walls
     # Each wall is represented by a rectangular area with specific dimensions:
@@ -104,9 +129,9 @@ def map19(x_pos, y_pos, developer_mode):
                 exit()
 
         # clear screen
-        screen.fill((0, 0, 0))
+        scaled_surface.fill((0, 0, 0))
 
-        ground.draw(screen)
+        ground.draw(scaled_surface)
 
         # key press for player
         key = pygame.key.get_pressed()
@@ -117,7 +142,7 @@ def map19(x_pos, y_pos, developer_mode):
 
         # Draw the walls
         for wall in walls:
-            wall.draw(screen)
+            wall.draw(scaled_surface)
 
         # Draw the bots
         for bot in bots:
@@ -144,15 +169,22 @@ def map19(x_pos, y_pos, developer_mode):
         # - Toggle between player view and developer view using the left-alt key
         if developer_mode:
             font = pygame.font.SysFont("", 24)
-            x, y = pygame.mouse.get_pos()
-            screen.blit(font.render(f"Developer Mode - map19", True, (255, 0, 0)), (10, 5))
-            screen.blit(font.render(f'X: {x}, Y: {y}', True, (255, 0, 0)), (10, 25))
-            screen.blit(font.render(f'player x : {player.x}', True, (255, 0, 0)), (10, 45))
-            screen.blit(font.render(f'player y : {player.y}', True, (255, 0, 0)), (10, 65))
 
+            # Get the scaled mouse position
+            scaled_mouse_x = (pygame.mouse.get_pos()[0] - offset_x) / scale_factor
+            scaled_mouse_y = (pygame.mouse.get_pos()[1] - offset_y) / scale_factor
+
+            # Display developer information on the scaled surface
+            scaled_surface.blit(font.render(f"Developer Mode - Map19", True, (255, 0, 0)), (10, 5))
+            scaled_surface.blit(font.render(f'X: {scaled_mouse_x:.0f}, Y: {scaled_mouse_y:.0f}', True, (255, 0, 0)),
+                                (10, 25))
+            scaled_surface.blit(font.render(f'player x : {player.x}', True, (255, 0, 0)), (10, 45))
+            scaled_surface.blit(font.render(f'player y : {player.y}', True, (255, 0, 0)), (10, 65))
+
+            # Teleport player to scaled mouse position when the space key is pressed
             if key[pygame.K_SPACE]:
-                player.x = x
-                player.y = y
+                player.x = scaled_mouse_x
+                player.y = scaled_mouse_y
 
             if key[pygame.K_LALT]:
                 time.sleep(0.2)
@@ -162,20 +194,25 @@ def map19(x_pos, y_pos, developer_mode):
                     view_toggle = False
 
             if view_toggle:
-                screen.blit(font.render('Developer View', True, (255, 0, 0)), (10, 85))
-                player.draw_rect(screen)
+                scaled_surface.blit(font.render('Developer View', True, (255, 0, 0)), (10, 85))
+                player.draw_rect(scaled_surface)
 
                 for bot in bots:
-                    bot.draw_rect(screen)
+                    bot.draw_rect(scaled_surface)
 
                 for mp_dev in mp:
-                    mp_dev.draw(screen, (0, 0, 255))
+                    mp_dev.draw(scaled_surface, (0, 0, 255))
 
                 for wall in walls:
-                    wall.rect_draw(screen, (0, 255, 0))
+                    wall.rect_draw(scaled_surface, (0, 255, 0))
 
             if not view_toggle:
-                screen.blit(font.render('Player View', True, (255, 0, 0)), (10, 85))
+                scaled_surface.blit(font.render('Player View', True, (255, 0, 0)), (10, 85))
+
+        # Draw the scaled surface on the screen with scaling and centering
+        screen.fill((0, 0, 0))
+        scaled_screen = pygame.transform.scale(scaled_surface, (scaled_width, scaled_height))
+        screen.blit(scaled_screen, (offset_x, offset_y))
 
         # Frame rate
         pygame.time.Clock().tick(30)
