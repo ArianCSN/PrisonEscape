@@ -1,10 +1,14 @@
 import pygame
 import time
+import os
 from Ground import Ground
 from MyPlayer import MyPlayer
 from Bot import Bot
 from Wall import Wall
 from InvisibleWall import InvisibleWall
+
+# Get the directory of the current script
+base_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 def map23(x_pos, y_pos, developer_mode):
@@ -51,37 +55,37 @@ def map23(x_pos, y_pos, developer_mode):
     view_toggle = True
 
     # load texture
-    ground_texture = pygame.image.load('assets/map23/ground/ground.jpg')
+    ground_texture = pygame.image.load(os.path.join(base_dir, 'assets/map23/ground/ground.jpg'))
 
-    wall_texture = pygame.image.load('assets/map23/wall/wall.png')
+    wall_texture = pygame.image.load(os.path.join(base_dir, 'assets/map23/wall/wall.png'))
 
-    idle = pygame.image.load('assets/map23/player/idle.png')
+    idle = pygame.image.load(os.path.join(base_dir, 'assets/map23/player/idle.png'))
 
     walk_up = None
 
-    walk_left = [pygame.image.load('assets/map23/player/L1.png'), pygame.image.load('assets/map23/player/L2.png'),
-                 pygame.image.load('assets/map23/player/L3.png'), pygame.image.load('assets/map23/player/L4.png'),
-                 pygame.image.load('assets/map23/player/L5.png'), pygame.image.load('assets/map23/player/L6.png')]
+    walk_left = [pygame.image.load(os.path.join(base_dir, 'assets/map23/player/L1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/player/L2.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map23/player/L3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/player/L4.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map23/player/L5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/player/L6.png'))]
 
     walk_down = None
 
-    walk_right = [pygame.image.load('assets/map23/player/R1.png'), pygame.image.load('assets/map23/player/R2.png'),
-                  pygame.image.load('assets/map23/player/R3.png'), pygame.image.load('assets/map23/player/R4.png'),
-                  pygame.image.load('assets/map23/player/R5.png'), pygame.image.load('assets/map23/player/R6.png')]
+    walk_right = [pygame.image.load(os.path.join(base_dir, 'assets/map23/player/R1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/player/R2.png')),
+                  pygame.image.load(os.path.join(base_dir, 'assets/map23/player/R3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/player/R4.png')),
+                  pygame.image.load(os.path.join(base_dir, 'assets/map23/player/R5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/player/R6.png'))]
 
-    bot_idle = pygame.image.load('assets/map23/bot/idle.png')
+    bot_idle = pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/idle.png'))
 
     bot_up = None
 
-    bot_left = [pygame.image.load('assets/map23/bot/L1.png'), pygame.image.load('assets/map23/bot/L2.png'),
-                pygame.image.load('assets/map23/bot/L3.png'), pygame.image.load('assets/map23/bot/L4.png'),
-                pygame.image.load('assets/map23/bot/L5.png'), pygame.image.load('assets/map23/bot/L6.png')]
+    bot_left = [pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/L1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/L2.png')),
+                pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/L3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/L4.png')),
+                pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/L5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/L6.png'))]
 
     bot_down = None
 
-    bot_right = [pygame.image.load('assets/map23/bot/R1.png'), pygame.image.load('assets/map23/bot/R2.png'),
-                 pygame.image.load('assets/map23/bot/R3.png'), pygame.image.load('assets/map23/bot/R4.png'),
-                 pygame.image.load('assets/map23/bot/R5.png'), pygame.image.load('assets/map23/bot/R6.png')]
+    bot_right = [pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/R1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/R2.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/R3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/R4.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/R5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map23/bot/R6.png'))]
 
     # define the ground
     ground = Ground(map_width, map_height, ground_texture)
@@ -172,7 +176,7 @@ def map23(x_pos, y_pos, developer_mode):
         if player.rect.colliderect(tps[0]):
 
             # Play teleportation sound effect
-            sound_effect = pygame.mixer.Sound('assets/map23/sound/teleport.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map23/sound/teleport.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 
@@ -181,7 +185,7 @@ def map23(x_pos, y_pos, developer_mode):
         if player.rect.colliderect(tps[1]):
 
             # Play teleportation sound effect
-            sound_effect = pygame.mixer.Sound('assets/map23/sound/teleport.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map23/sound/teleport.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 
@@ -190,7 +194,7 @@ def map23(x_pos, y_pos, developer_mode):
         if player.rect.colliderect(tps[2]):
 
             # Play teleportation sound effect
-            sound_effect = pygame.mixer.Sound('assets/map23/sound/teleport.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map23/sound/teleport.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 
@@ -199,7 +203,7 @@ def map23(x_pos, y_pos, developer_mode):
         if player.rect.colliderect(tps[3]):
 
             # Play teleportation sound effect
-            sound_effect = pygame.mixer.Sound('assets/map23/sound/teleport.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map23/sound/teleport.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 
@@ -208,7 +212,7 @@ def map23(x_pos, y_pos, developer_mode):
         if player.rect.colliderect(tps[4]):
 
             # Play teleportation sound effect
-            sound_effect = pygame.mixer.Sound('assets/map23/sound/teleport.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map23/sound/teleport.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 
@@ -217,7 +221,7 @@ def map23(x_pos, y_pos, developer_mode):
         if player.rect.colliderect(tps[5]):
 
             # Play teleportation sound effect
-            sound_effect = pygame.mixer.Sound('assets/map23/sound/teleport.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map23/sound/teleport.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 
@@ -231,7 +235,7 @@ def map23(x_pos, y_pos, developer_mode):
             bot.check_collision(mp)
             # if player collide bots it goes to game over screen and pass player position of map01 for new start
             if player.rect.colliderect(bot.rect):
-                sound_effect = pygame.mixer.Sound('assets/map23/sound/lose.wav')
+                sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map23/sound/lose.wav'))
                 sound_effect.set_volume(0.2)
                 sound_effect.play()
                 pygame.mixer.music.stop()

@@ -1,10 +1,14 @@
 import pygame
 import time
 import random
+import os
 from Ground import Ground
 from MyPlayer import MyPlayer
 from Wall import Wall
 from InvisibleWall import InvisibleWall
+
+# Get the directory of the current script
+base_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 def map13(x_pos, y_pos, developer_mode):
@@ -51,23 +55,23 @@ def map13(x_pos, y_pos, developer_mode):
     view_toggle = True
 
     # load texture
-    ground_texture = pygame.image.load('assets/map13/ground/ground.jpg')
+    ground_texture = pygame.image.load(os.path.join(base_dir, 'assets/map13/ground/ground.jpg'))
 
-    wall_texture = pygame.image.load('assets/map13/wall/wall.png')
+    wall_texture = pygame.image.load(os.path.join(base_dir, 'assets/map13/wall/wall.png'))
 
-    idle = pygame.image.load('assets/map13/player/idle.png')
+    idle = pygame.image.load(os.path.join(base_dir, 'assets/map13/player/idle.png'))
 
     walk_up = None
 
-    walk_left = [pygame.image.load('assets/map13/player/L1.png'), pygame.image.load('assets/map13/player/L2.png'),
-                 pygame.image.load('assets/map13/player/L3.png'), pygame.image.load('assets/map13/player/L4.png'),
-                 pygame.image.load('assets/map13/player/L5.png'), pygame.image.load('assets/map13/player/L6.png')]
+    walk_left = [pygame.image.load(os.path.join(base_dir, 'assets/map13/player/L1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map13/player/L2.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map13/player/L3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map13/player/L4.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map13/player/L5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map13/player/L6.png'))]
 
     walk_down = None
 
-    walk_right = [pygame.image.load('assets/map13/player/R1.png'), pygame.image.load('assets/map13/player/R2.png'),
-                  pygame.image.load('assets/map13/player/R3.png'), pygame.image.load('assets/map13/player/R4.png'),
-                  pygame.image.load('assets/map13/player/R5.png'), pygame.image.load('assets/map13/player/R6.png')]
+    walk_right = [pygame.image.load(os.path.join(base_dir, 'assets/map13/player/R1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map13/player/R2.png')),
+                  pygame.image.load(os.path.join(base_dir, 'assets/map13/player/R3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map13/player/R4.png')),
+                  pygame.image.load(os.path.join(base_dir, 'assets/map13/player/R5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map13/player/R6.png'))]
 
     # define the ground
     ground = Ground(map_width, map_height, ground_texture)
@@ -180,7 +184,7 @@ def map13(x_pos, y_pos, developer_mode):
             buttons[0].__init__(0, 0, 0, 0)
             buttons[1].__init__(0, 0, 0, 0)
             doors[0].__init__(0, 0, 0, 0)
-            sound_effect = pygame.mixer.Sound('assets/map13/sound/door.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map13/sound/door.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 
@@ -188,7 +192,7 @@ def map13(x_pos, y_pos, developer_mode):
             buttons[2].__init__(0, 0, 0, 0)
             buttons[3].__init__(0, 0, 0, 0)
             doors[1].__init__(0, 0, 0, 0)
-            sound_effect = pygame.mixer.Sound('assets/map13/sound/door.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map13/sound/door.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 
@@ -196,7 +200,7 @@ def map13(x_pos, y_pos, developer_mode):
             buttons[4].__init__(0, 0, 0, 0)
             buttons[5].__init__(0, 0, 0, 0)
             doors[2].__init__(0, 0, 0, 0)
-            sound_effect = pygame.mixer.Sound('assets/map13/sound/door.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map13/sound/door.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 
@@ -204,7 +208,7 @@ def map13(x_pos, y_pos, developer_mode):
             buttons[6].__init__(0, 0, 0, 0)
             buttons[7].__init__(0, 0, 0, 0)
             doors[3].__init__(0, 0, 0, 0)
-            sound_effect = pygame.mixer.Sound('assets/map13/sound/door.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map13/sound/door.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 

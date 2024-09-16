@@ -33,14 +33,14 @@ def win():
 
     # Initializes Pygame's mixer module for audio playback.
     pygame.mixer.init()
-    pygame.mixer.music.load('assets/win/sound/music.wav')
+    pygame.mixer.music.load(os.path.join(base_dir, 'assets/win/sound/music.wav'))
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.2)
 
     pygame.mouse.set_visible(True)
 
     # Load and scale the win screen background image
-    win_screen_image = pygame.image.load('assets/win/img/win.jpg')
+    win_screen_image = pygame.image.load(os.path.join(base_dir, 'assets/win/img/win.jpg'))
     win_screen_image = pygame.transform.scale(win_screen_image, (scaled_width, scaled_height))
 
     # Initial positions of text and buttons (off the screen at the bottom)
@@ -112,12 +112,12 @@ def win():
                 mouse_x = (event.pos[0] - offset_x) / scale_factor
                 mouse_y = (event.pos[1] - offset_y) / scale_factor
                 if try_again_button.collidepoint((mouse_x, mouse_y)):
-                    sound_effect = pygame.mixer.Sound('assets/win/sound/start.mp3')
+                    sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/win/sound/start.mp3'))
                     sound_effect.set_volume(0.2)
                     sound_effect.play()
 
                     # load music
-                    pygame.mixer.music.load('assets/sound/music.wav')
+                    pygame.mixer.music.load(os.path.join(base_dir, 'assets/sound/music.wav'))
                     pygame.mixer.music.set_volume(0.4)
                     pygame.mixer.music.play(-1)
                     return "map01", 780, 390  # Exit the win screen

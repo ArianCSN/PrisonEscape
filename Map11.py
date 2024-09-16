@@ -1,9 +1,13 @@
 import pygame
 import time
+import os
 from Ground import Ground
 from MyPlayer import MyPlayer
 from Wall import Wall
 from InvisibleWall import InvisibleWall
+
+# Get the directory of the current script
+base_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 def map11(x_pos, y_pos, developer_mode):
@@ -50,23 +54,23 @@ def map11(x_pos, y_pos, developer_mode):
     view_toggle = True
 
     # load texture
-    ground_texture = pygame.image.load('assets/map11/ground/ground.jpg')
+    ground_texture = pygame.image.load(os.path.join(base_dir, 'assets/map11/ground/ground.jpg'))
 
-    wall_texture = pygame.image.load('assets/map11/wall/wall.png')
+    wall_texture = pygame.image.load(os.path.join(base_dir, 'assets/map11/wall/wall.png'))
 
-    idle = pygame.image.load('assets/map11/player/idle.png')
+    idle = pygame.image.load(os.path.join(base_dir, 'assets/map11/player/idle.png'))
 
     walk_up = None
 
-    walk_left = [pygame.image.load('assets/map11/player/L1.png'), pygame.image.load('assets/map11/player/L2.png'),
-                 pygame.image.load('assets/map11/player/L3.png'), pygame.image.load('assets/map11/player/L4.png'),
-                 pygame.image.load('assets/map11/player/L5.png'), pygame.image.load('assets/map11/player/L6.png')]
+    walk_left = [pygame.image.load(os.path.join(base_dir, 'assets/map11/player/L1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map11/player/L2.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map11/player/L3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map11/player/L4.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map11/player/L5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map11/player/L6.png'))]
 
     walk_down = None
 
-    walk_right = [pygame.image.load('assets/map11/player/R1.png'), pygame.image.load('assets/map11/player/R2.png'),
-                  pygame.image.load('assets/map11/player/R3.png'), pygame.image.load('assets/map11/player/R4.png'),
-                  pygame.image.load('assets/map11/player/R5.png'), pygame.image.load('assets/map11/player/R6.png')]
+    walk_right = [pygame.image.load(os.path.join(base_dir, 'assets/map11/player/R1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map11/player/R2.png')),
+                  pygame.image.load(os.path.join(base_dir, 'assets/map11/player/R3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map11/player/R4.png')),
+                  pygame.image.load(os.path.join(base_dir, 'assets/map11/player/R5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map11/player/R6.png'))]
 
     # define the ground
     ground = Ground(map_width, map_height, ground_texture)
@@ -135,7 +139,7 @@ def map11(x_pos, y_pos, developer_mode):
             player.y = 390
 
             # Play teleportation sound effect
-            sound_effect = pygame.mixer.Sound('assets/map11/sound/teleport.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map11/sound/teleport.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 
@@ -146,7 +150,7 @@ def map11(x_pos, y_pos, developer_mode):
             player.y = 150
 
             # Play teleportation sound effect
-            sound_effect = pygame.mixer.Sound('assets/map11/sound/teleport.wav')
+            sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map11/sound/teleport.wav'))
             sound_effect.set_volume(0.2)
             sound_effect.play()
 

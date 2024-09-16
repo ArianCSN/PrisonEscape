@@ -1,10 +1,14 @@
 import pygame
 import time
 import random
+import os
 from Ground import Ground
 from MyPlayer import MyPlayer
 from Wall import Wall
 from InvisibleWall import InvisibleWall
+
+# Get the directory of the current script
+base_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 def map14(x_pos, y_pos, developer_mode):
@@ -51,23 +55,23 @@ def map14(x_pos, y_pos, developer_mode):
     view_toggle = True
 
     # load texture
-    ground_texture = pygame.image.load('assets/map14/ground/ground.jpg')
+    ground_texture = pygame.image.load(os.path.join(base_dir, 'assets/map14/ground/ground.jpg'))
 
-    wall_texture = pygame.image.load('assets/map14/wall/wall.png')
+    wall_texture = pygame.image.load(os.path.join(base_dir, 'assets/map14/wall/wall.png'))
 
-    idle = pygame.image.load('assets/map14/player/idle.png')
+    idle = pygame.image.load(os.path.join(base_dir, 'assets/map14/player/idle.png'))
 
     walk_up = None
 
-    walk_left = [pygame.image.load('assets/map14/player/L1.png'), pygame.image.load('assets/map14/player/L2.png'),
-                 pygame.image.load('assets/map14/player/L3.png'), pygame.image.load('assets/map14/player/L4.png'),
-                 pygame.image.load('assets/map14/player/L5.png'), pygame.image.load('assets/map14/player/L6.png')]
+    walk_left = [pygame.image.load(os.path.join(base_dir, 'assets/map14/player/L1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map14/player/L2.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map14/player/L3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map14/player/L4.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map14/player/L5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map14/player/L6.png'))]
 
     walk_down = None
 
-    walk_right = [pygame.image.load('assets/map14/player/R1.png'), pygame.image.load('assets/map14/player/R2.png'),
-                  pygame.image.load('assets/map14/player/R3.png'), pygame.image.load('assets/map14/player/R4.png'),
-                  pygame.image.load('assets/map14/player/R5.png'), pygame.image.load('assets/map14/player/R6.png')]
+    walk_right = [pygame.image.load(os.path.join(base_dir, 'assets/map14/player/R1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map14/player/R2.png')),
+                  pygame.image.load(os.path.join(base_dir, 'assets/map14/player/R3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map14/player/R4.png')),
+                  pygame.image.load(os.path.join(base_dir, 'assets/map14/player/R5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map14/player/R6.png'))]
 
     # define the ground
     ground = Ground(map_width, map_height, ground_texture)

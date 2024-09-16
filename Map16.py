@@ -1,10 +1,14 @@
 import random
 import time
 import pygame
+import os
 from Ground import Ground
 from MyPlayer import MyPlayer
 from Wall import Wall
 from InvisibleWall import InvisibleWall
+
+# Get the directory of the current script
+base_dir = os.path.dirname(os.path.abspath(__file__))
 
 
 def map16(x_pos, y_pos, developer_mode):
@@ -51,23 +55,23 @@ def map16(x_pos, y_pos, developer_mode):
     view_toggle = True
 
     # load texture
-    ground_texture = pygame.image.load('assets/map16/ground/ground.jpg')
+    ground_texture = pygame.image.load(os.path.join(base_dir, 'assets/map16/ground/ground.jpg'))
 
-    wall_texture = pygame.image.load('assets/map16/wall/wall.png')
+    wall_texture = pygame.image.load(os.path.join(base_dir, 'assets/map16/wall/wall.png'))
 
-    idle = pygame.image.load('assets/map16/player/idle.png')
+    idle = pygame.image.load(os.path.join(base_dir, 'assets/map16/player/idle.png'))
 
     walk_up = None
 
-    walk_left = [pygame.image.load('assets/map16/player/L1.png'), pygame.image.load('assets/map16/player/L2.png'),
-                 pygame.image.load('assets/map16/player/L3.png'), pygame.image.load('assets/map16/player/L4.png'),
-                 pygame.image.load('assets/map16/player/L5.png'), pygame.image.load('assets/map16/player/L6.png')]
+    walk_left = [pygame.image.load(os.path.join(base_dir, 'assets/map16/player/L1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map16/player/L2.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map16/player/L3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map16/player/L4.png')),
+                 pygame.image.load(os.path.join(base_dir, 'assets/map16/player/L5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map16/player/L6.png'))]
 
     walk_down = None
 
-    walk_right = [pygame.image.load('assets/map16/player/R1.png'), pygame.image.load('assets/map16/player/R2.png'),
-                  pygame.image.load('assets/map16/player/R3.png'), pygame.image.load('assets/map16/player/R4.png'),
-                  pygame.image.load('assets/map16/player/R5.png'), pygame.image.load('assets/map16/player/R6.png')]
+    walk_right = [pygame.image.load(os.path.join(base_dir, 'assets/map16/player/R1.png')), pygame.image.load(os.path.join(base_dir, 'assets/map16/player/R2.png')),
+                  pygame.image.load(os.path.join(base_dir, 'assets/map16/player/R3.png')), pygame.image.load(os.path.join(base_dir, 'assets/map16/player/R4.png')),
+                  pygame.image.load(os.path.join(base_dir, 'assets/map16/player/R5.png')), pygame.image.load(os.path.join(base_dir, 'assets/map16/player/R6.png'))]
 
     # define the ground
     ground = Ground(map_width, map_height, ground_texture)
@@ -144,7 +148,7 @@ def map16(x_pos, y_pos, developer_mode):
             "Teleportation Room",
             "You can use the teleporter in this room to randomly teleport.",
             "There's a 4% chance of getting trapped upon teleportation.",
-            "Additionally, there's a 4% chance of teleporting to an exit room."
+            "Additionally, there's a 4% chance of teleporting to exit room."
         ]
 
         # Blit the text lines onto the screen
@@ -191,20 +195,20 @@ def map16(x_pos, y_pos, developer_mode):
 
             # Play teleportation sound effect
             if randomize == ["map02", 921, 484]:
-                sound_effect = pygame.mixer.Sound('assets/map16/sound/trapped.wav')
+                sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map16/sound/trapped.wav'))
                 sound_effect.set_volume(1)
                 sound_effect.play()
             elif randomize == ["map25", 786, 243]:
-                sound_effect = pygame.mixer.Sound('assets/map16/sound/lucky.mp3')
+                sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map16/sound/lucky.mp3'))
                 sound_effect.set_volume(1)
                 sound_effect.play()
             else:
-                sound_effect = pygame.mixer.Sound('assets/map16/sound/teleport.wav')
+                sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/map16/sound/teleport.wav'))
                 sound_effect.set_volume(1)
                 sound_effect.play()
 
             # Create a white flash effect (you can adjust the duration and intensity)
-            flash_surface = pygame.Surface(scaled_surface.get_size())
+            flash_surface = pygame.Surface(screen.get_size())
             flash_surface.fill((255, 255, 255))  # White color
             flash_surface.set_alpha(100)  # Adjust transparency (0 to 255)
             scaled_surface.blit(flash_surface, (0, 0))

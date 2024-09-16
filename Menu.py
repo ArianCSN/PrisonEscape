@@ -1,8 +1,12 @@
 import pygame
 import sys
+import os
 
 # Initialize Pygame
 pygame.init()
+
+# Get the directory of the current script
+base_dir = os.path.dirname(os.path.abspath(__file__))
 
 def main_menu():
     # Native resolution of the menu screen
@@ -36,7 +40,7 @@ def main_menu():
 
     # Initializes Pygame's mixer module for audio playback.
     pygame.mixer.init()
-    pygame.mixer.music.load('assets/main_menu/sound/music.mp3')
+    pygame.mixer.music.load(os.path.join(base_dir, 'assets/main_menu/sound/music.mp3'))
     pygame.mixer.music.play(-1)
     pygame.mixer.music.set_volume(0.2)
     pygame.mouse.set_visible(True)
@@ -86,13 +90,13 @@ def main_menu():
                 mouse_x = (event.pos[0] - offset_x) / scale_factor
                 mouse_y = (event.pos[1] - offset_y) / scale_factor
                 if play_button.collidepoint((mouse_x, mouse_y)):
-                    sound_effect = pygame.mixer.Sound('assets/main_menu/sound/start.mp3')
+                    sound_effect = pygame.mixer.Sound(os.path.join(base_dir, 'assets/main_menu/sound/start.mp3'))
                     sound_effect.set_volume(0.2)
                     sound_effect.play()
                     pygame.mixer.music.stop()
 
                     # load music
-                    pygame.mixer.music.load('assets/sound/music.wav')
+                    pygame.mixer.music.load(os.path.join(base_dir, 'assets/sound/music.wav'))
                     pygame.mixer.music.set_volume(0.4)
                     pygame.mixer.music.play(-1)
 
