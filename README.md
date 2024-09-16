@@ -49,7 +49,7 @@ python main.py --developer-mode
 
 - **Arrow Keys/WASD**: Move your character.
 - **Space**: Move your character to mouse position in Developer Mode
-- **Left Alt**: Switch between player view and developer view by show and hide hit boxes
+- **Left Alt**: Switch between player view and developer view by show and hide hit boxes in Developer Mode
 
 ## Acknowledgments
 
