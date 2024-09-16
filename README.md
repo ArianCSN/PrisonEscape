@@ -6,7 +6,6 @@
 
 ## Features
 
-- **Engaging Storyline**: Follow a compelling narrative as you plot your escape.
 - **Challenging Puzzles**: Solve tricky puzzles to unlock doors, disable security systems, and find your way to freedom.
 - **Multiple Levels**: Each map increases in difficulty, requiring skill and strategy to overcome.
 - **Dynamic Environment**: Navigate through detailed and interactive environments, filled with obstacles and challenges.
